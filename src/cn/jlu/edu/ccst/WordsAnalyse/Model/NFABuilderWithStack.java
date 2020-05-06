@@ -16,6 +16,7 @@ public class NFABuilderWithStack {
     public final static  char CHARSET_LEFT_OPERATOR = '[';
     public final static  char CHARSET_MIDDLE_OPERATOR = '-';
     public final static  char CHARSET_RIGHT_OPERATOR = ']';
+    public final static  char ANYCHAR = '.';
 
     static HashMap<Character, Integer> operatorPriorityMap=new HashMap<>(){{
         put(UNION_OPERATOR,1);//|
@@ -142,6 +143,9 @@ public class NFABuilderWithStack {
                 case NFABuilderWithStack.ONE_OR_MORE_OPERATOR:
                     var nfa3=stack.pop();
                     stack.push(NFA.oneOrMore(nfa3));
+                    break;
+                case NFABuilderWithStack.ANYCHAR:
+                    stack.push(NFA.createAnyNFA());
                     break;
                 case NFABuilderWithStack.CHARSET_LEFT_OPERATOR:
                     var end=i+2;

@@ -73,6 +73,12 @@ public class NFA {
         return "";
     }
 
+    static NFA createAnyNFA(){
+        var startState=new State(false);
+        var endState=new State(true);
+        startState.addAnyCharTransition(endState);
+        return new NFA(startState,endState);
+    }
     static NFA createBasicNFA(Character token){
         var startState=new State(false);
         var endState=new State(true);

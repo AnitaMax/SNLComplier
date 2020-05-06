@@ -1,5 +1,6 @@
 package cn.jlu.edu.ccst.WordsAnalyse.Model;
 
+import cn.jlu.edu.ccst.WordsAnalyse.Model.Conditions.AnyCharCondition;
 import cn.jlu.edu.ccst.WordsAnalyse.Model.Conditions.CharSetCondition;
 import cn.jlu.edu.ccst.WordsAnalyse.Model.Conditions.CharacterCondition;
 import cn.jlu.edu.ccst.WordsAnalyse.Model.Conditions.Condition;
@@ -31,6 +32,10 @@ public class State {
 
     public State addEpsilonTransition(State to){
         this.epsilonTransition.add(to);
+        return this;
+    }
+    public State addAnyCharTransition(State to){
+        this.transition.put(new AnyCharCondition(),to);
         return this;
     }
 }

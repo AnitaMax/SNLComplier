@@ -109,4 +109,14 @@ class RegexUtilTest {
         assertEquals(RegexUtil.acceptFromStart("[a-zA-Z]([a-zA-Z]|[0-9])*", "++ddd"),"");
 
     }
+
+    @Test
+    void matchAnyChar (){
+        System.out.println("Test any char symbol works as expect");
+        assertTrue(RegexUtil.match("'.'", "'A'"));
+        assertFalse(RegexUtil.match("'.'", "'AAAA'"));
+        assertTrue(RegexUtil.match("'.*'", "'Avvvvvv'"));
+        assertFalse(RegexUtil.match("'.'", "''"));
+    }
+
 }
