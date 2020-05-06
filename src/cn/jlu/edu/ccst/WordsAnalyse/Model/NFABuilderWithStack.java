@@ -13,6 +13,9 @@ public class NFABuilderWithStack {
     public final static  char ONE_OR_MORE_OPERATOR = '+';
     public final static  char GROUP_LEFT_OPERATOR = '(';
     public final static  char GROUP_RIGHT_OPERATOR = ')';
+    public final static  char CHARSET_LEFT_OPERATOR = '[';
+    public final static  char CHARSET_MIDDLE_OPERATOR = '-';
+    public final static  char CHARSET_RIGHT_OPERATOR = ']';
 
     static HashMap<Character, Integer> operatorPriorityMap=new HashMap<>(){{
         put(UNION_OPERATOR,1);//|
@@ -35,7 +38,7 @@ public class NFABuilderWithStack {
             var token=exp.charAt(i);
             output.append(token);
 
-            if(token==GROUP_LEFT_OPERATOR||token==GROUP_RIGHT_OPERATOR||token==UNION_OPERATOR){
+            if(token==GROUP_LEFT_OPERATOR||token==GROUP_RIGHT_OPERATOR||token==UNION_OPERATOR||token==CHARSET_MIDDLE_OPERATOR||token==CHARSET_LEFT_OPERATOR){
                 continue;
             }
 
@@ -46,7 +49,12 @@ public class NFABuilderWithStack {
                         lookahead==ZERO_OR_ONE_OPERATOR||
                         lookahead==ONE_OR_MORE_OPERATOR||
                         lookahead==GROUP_RIGHT_OPERATOR||
-                        lookahead==UNION_OPERATOR){
+                        lookahead==UNION_OPERATOR||
+                        lookahead==CHARSET_MIDDLE_OPERATOR||
+                        lookahead==CHARSET_RIGHT_OPERATOR){
+                    continue;
+                }
+                if(i<exp.length()-2&&exp.charAt(i+2)==CHARSET_MIDDLE_OPERATOR){
                     continue;
                 }
                 output.append(CONCATENATION_OPERATOR);
@@ -110,7 +118,8 @@ public class NFABuilderWithStack {
      */
     static NFA postfixBuildToNFA(String exp){
         var stack = new Stack<NFA>();
-        for (char token :exp.toCharArray()) {
+        for (int i=0;i<exp.length();i++) {
+            var token=exp.charAt(i);
             switch (token){
                 case NFABuilderWithStack.UNION_OPERATOR:
                     var bNFA=stack.pop();
@@ -134,8 +143,22 @@ public class NFABuilderWithStack {
                     var nfa3=stack.pop();
                     stack.push(NFA.oneOrMore(nfa3));
                     break;
+                case NFABuilderWithStack.CHARSET_LEFT_OPERATOR:
+                    var end=i+2;
+                    while (end<exp.length()&&exp.charAt(end)==CHARSET_MIDDLE_OPERATOR) {
+                        end += 3;
+                    }
+                    end-=1;
+                    if(end<exp.length()&&exp.charAt(end)==CHARSET_RIGHT_OPERATOR){
+                        stack.push(NFA.createCharsetNFA(exp.substring(i,end+1)));
+                        i=end;
+                    }else {
+                        stack.push(NFA.createBasicNFA(token));
+                    }
+                    break;
                 default:
                     stack.push(NFA.createBasicNFA(token));
+
             }
         }
         if(stack.size()==1){

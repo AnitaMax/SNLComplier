@@ -9,23 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class RegexUtilTest {
 
     @Test
-    void insertExplicitConcatOperator() {
-        assertEquals("(a|b)*·a·b·b", NFABuilderWithStack.insertExplicitConcatOperator("(a|b)*abb"));
-    }
-
-    @Test
-    void infixToPostfix() {
-        assertEquals("ab|*c·",NFABuilderWithStack.infixToPostfix("(a|b)*·c"));
-    }
-
-    @Test
     void matchConCat() {
         System.out.println("Test concat works as expect");
         assertTrue(RegexUtil.match("a", "a"));
         assertFalse(RegexUtil.match("a", "b"));
         assertTrue(RegexUtil.match("ab", "ab"));
         assertFalse(RegexUtil.match("ab", "b"));
-
+        assertTrue(RegexUtil.match("成*立", "成成成成成立"));
     }
 
     @Test
@@ -94,5 +84,22 @@ class RegexUtilTest {
         assertTrue(RegexUtil.match("a(bc)*", "abc"));
         assertTrue(RegexUtil.match("a(b|c)*", "a"));
         assertTrue(RegexUtil.match("a(b|c)*", "abbccb"));
+    }
+
+    @Test
+    void matchCharSet (){
+        System.out.println("Test charset exp works as expect");
+        assertTrue(RegexUtil.match("[a-z]", "x"));
+        assertTrue(RegexUtil.match("[a-zA-Z]", "B"));
+        assertTrue(RegexUtil.match("[a-zA-Z]*b", "Bb"));
+        assertTrue(RegexUtil.match("[a-zA-Z]*b", "BBBBBb"));
+        assertTrue(RegexUtil.match("D[a-zA-Z]*b", "DBBBBBb"));
+        assertTrue(RegexUtil.match("D[0-9]?b", "Db"));
+        assertFalse(RegexUtil.match("D[0-9]?b", "D66b"));
+        assertFalse(RegexUtil.match("[0-9]", ""));
+        assertFalse(RegexUtil.match("[0-9]+", "dd"));
+        assertTrue(RegexUtil.match("[0-9]+", "9909"));
+        assertTrue(RegexUtil.match("[a-zA-Z]([a-zA-Z]|[0-9])*", "dd9909gg"));
+        assertFalse(RegexUtil.match("[a-zA-Z]([a-zA-Z]|[0-9])", "9909gg"));
     }
 }

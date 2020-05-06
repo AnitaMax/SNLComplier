@@ -1,5 +1,6 @@
 package cn.jlu.edu.ccst.WordsAnalyse.Model;
 
+import cn.jlu.edu.ccst.WordsAnalyse.Model.Conditions.CharSetCondition;
 import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 
 import java.util.ArrayList;
@@ -35,18 +36,20 @@ public class NFA {
         }
         return visited;
     }
-
+    static ArrayList<State> move(State state,Character character){
+        var nextStates=new ArrayList<State>();
+        for(var condition:state.transition.keySet()){
+            if(condition.accept(character)){
+                nextStates.addAll(NFA.getClosure(state.transition.get(condition)));
+            }
+        }
+        return nextStates;
+    }
     public boolean isMatch(String exp){
         ArrayList<State> currentState=NFA.getClosure(startState);
         for(char token:exp.toCharArray()){
             var nextStates=new ArrayList<State>();
-            currentState.forEach(state-> {
-                for(var condition:state.transition.keySet()){
-                    if(condition.accept(token)){
-                        nextStates.addAll(NFA.getClosure(state.transition.get(condition)));
-                    }
-                }
-            });
+            currentState.forEach(state-> nextStates.addAll(move(state,token)));
             currentState=nextStates;
         }
         return currentState.stream().anyMatch(state->state.isEnd);
@@ -57,6 +60,21 @@ public class NFA {
         var endState=new State(true);
         if(token!=null){
             startState.addCharTransition(token,endState);
+        }else {
+            startState.addEpsilonTransition(endState);
+        }
+        return new NFA(startState,endState);
+    }
+    public  static NFA createCharsetNFA(String token){
+        var startState=new State(false);
+        var endState=new State(true);
+        if(token!=null){
+            var groupNum=(token.length()-2)/3;
+            var charset=new ArrayList<Character>();
+            for(int i=1;i<=groupNum;i++){
+                charset.addAll(CharSetCondition.getSet(token.charAt(3*i-2),token.charAt(3*i)));
+            }
+            startState.addCharSetTransition(charset,endState);
         }else {
             startState.addEpsilonTransition(endState);
         }
