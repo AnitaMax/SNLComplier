@@ -55,6 +55,24 @@ public class NFA {
         return currentState.stream().anyMatch(state->state.isEnd);
     }
 
+    public String acceptFromStart(String exp){
+        ArrayList<State> currentState=NFA.getClosure(startState);
+        var matched=new StringBuilder();
+        for(char token:exp.toCharArray()){
+            var nextStates=new ArrayList<State>();
+            currentState.forEach(state-> nextStates.addAll(move(state,token)));
+
+            if(currentState.stream().anyMatch(state->state.isEnd)&& nextStates.stream().noneMatch(state->state.isEnd)){
+                return matched.toString();
+            }else{
+                matched.append(token);
+                currentState=nextStates;
+            }
+
+        }
+        return "";
+    }
+
     static NFA createBasicNFA(Character token){
         var startState=new State(false);
         var endState=new State(true);

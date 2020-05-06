@@ -12,4 +12,8 @@ public class RegexUtil {
         var nfa= NFABuilderWithStack.buildToNFA(regex);
         return nfa.isMatch(exp);
     }
+    public static String acceptFromStart(String regex,String exp){
+        var nfa= NFABuilderWithStack.buildToNFA(regex);
+        return nfa.acceptFromStart(exp);
+    }
 }

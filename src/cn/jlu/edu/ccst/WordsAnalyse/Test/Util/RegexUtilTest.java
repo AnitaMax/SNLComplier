@@ -102,4 +102,11 @@ class RegexUtilTest {
         assertTrue(RegexUtil.match("[a-zA-Z]([a-zA-Z]|[0-9])*", "dd9909gg"));
         assertFalse(RegexUtil.match("[a-zA-Z]([a-zA-Z]|[0-9])", "9909gg"));
     }
+
+    @Test
+    void acceptFromStart() {
+        assertEquals(RegexUtil.acceptFromStart("[a-zA-Z]([a-zA-Z]|[0-9])*", "dd9909gg++ddd"),"dd9909gg");
+        assertEquals(RegexUtil.acceptFromStart("[a-zA-Z]([a-zA-Z]|[0-9])*", "++ddd"),"");
+
+    }
 }
