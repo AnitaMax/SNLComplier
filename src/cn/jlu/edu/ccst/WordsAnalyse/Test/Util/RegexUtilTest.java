@@ -1,4 +1,4 @@
-package cn.jlu.edu.ccst.WordsAnalyse.Test;
+package cn.jlu.edu.ccst.WordsAnalyse.Test.Util;
 
 import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 import org.junit.jupiter.api.Test;

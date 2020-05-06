@@ -1,12 +1,16 @@
 package cn.jlu.edu.ccst.WordsAnalyse.Model;
 
+import cn.jlu.edu.ccst.WordsAnalyse.Model.Conditions.CharSetCondition;
+import cn.jlu.edu.ccst.WordsAnalyse.Model.Conditions.CharacterCondition;
+import cn.jlu.edu.ccst.WordsAnalyse.Model.Conditions.Condition;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class State {
     boolean isEnd;
-    HashMap<Character,State> transition;
+    HashMap<Condition,State> transition;
     ArrayList<State> epsilonTransition;
 
     public State(boolean isEnd) {
@@ -15,8 +19,13 @@ public class State {
         epsilonTransition = new ArrayList<>();
     }
 
-    public State addTransition(Character token, State to){
-        this.transition.put(token,to);
+    public State addCharTransition(Character token, State to){
+        this.transition.put(new CharacterCondition(token),to);
+        return this;
+    }
+
+    public State addCharSetTransition(ArrayList<Character> charset,State to){
+        this.transition.put(new CharSetCondition(charset),to);
         return this;
     }
 

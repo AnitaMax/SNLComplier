@@ -3,9 +3,7 @@ package cn.jlu.edu.ccst.WordsAnalyse.Model;
 import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Stack;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class NFA {
@@ -21,7 +19,7 @@ public class NFA {
         var startState=new State(false);
         var endState=new State(true);
         if(token!=null){
-            startState.addTransition(token,endState);
+            startState.addCharTransition(token,endState);
         }else {
             startState.addEpsilonTransition(endState);
         }
@@ -150,8 +148,10 @@ public class NFA {
         for(char token:exp.toCharArray()){
             var nextStates=new ArrayList<State>();
             currentState.forEach(state-> {
-                if(state.transition.containsKey(token)){
-                    nextStates.addAll(NFA.getClosure(state.transition.get(token)));
+                for(var condition:state.transition.keySet()){
+                    if(condition.accept(token)){
+                        nextStates.addAll(NFA.getClosure(state.transition.get(condition)));
+                    }
                 }
             });
             currentState=nextStates;
