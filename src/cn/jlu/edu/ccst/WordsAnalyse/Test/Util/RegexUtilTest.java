@@ -1,5 +1,6 @@
 package cn.jlu.edu.ccst.WordsAnalyse.Test.Util;
 
+import cn.jlu.edu.ccst.WordsAnalyse.Model.NFABuilderWithStack;
 import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 import org.junit.jupiter.api.Test;
 
@@ -9,12 +10,12 @@ class RegexUtilTest {
 
     @Test
     void insertExplicitConcatOperator() {
-        assertEquals("(a|b)*·a·b·b", RegexUtil.insertExplicitConcatOperator("(a|b)*abb"));
+        assertEquals("(a|b)*·a·b·b", NFABuilderWithStack.insertExplicitConcatOperator("(a|b)*abb"));
     }
 
     @Test
     void infixToPostfix() {
-        assertEquals("ab|*c·",RegexUtil.infixToPostfix("(a|b)*·c"));
+        assertEquals("ab|*c·",NFABuilderWithStack.infixToPostfix("(a|b)*·c"));
     }
 
     @Test
