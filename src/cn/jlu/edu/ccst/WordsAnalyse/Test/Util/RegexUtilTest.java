@@ -99,7 +99,7 @@ class RegexUtilTest {
         assertFalse(RegexUtil.match("[0-9]", ""));
         assertFalse(RegexUtil.match("[0-9]+", "dd"));
         assertTrue(RegexUtil.match("[0-9]+", "9909"));
-        assertTrue(RegexUtil.match("[a-zA-Z]([a-zA-Z]|[0-9])*", "dd9909gg"));
+        assertTrue(RegexUtil.match("[a-zA-Z]([a-zA-Z]|[0-9])*", "program"));
         assertFalse(RegexUtil.match("[a-zA-Z]([a-zA-Z]|[0-9])", "9909gg"));
     }
 

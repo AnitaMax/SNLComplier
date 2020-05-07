@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NFATest {
 
+
     @Test
     void createCharsetNFA() {
         assertTrue(NFA.createCharsetNFA("[a-z]").isMatch("x"));
