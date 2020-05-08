@@ -1,5 +1,6 @@
 package cn.jlu.edu.ccst.WordsAnalyse.Test.Util;
 
+import cn.jlu.edu.ccst.WordsAnalyse.Model.Token;
 import cn.jlu.edu.ccst.WordsAnalyse.util.InfoUtil;
 import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 import cn.jlu.edu.ccst.WordsAnalyse.util.TokenUtil;
@@ -35,4 +36,18 @@ class TokenUtilTest {
 
     }
 
+
+    @Test
+    void getToken() {
+        var s="program =p \n" +
+                "type t = integer\n" +
+                "var t v1;\n" +
+                "char v2;\n" +
+                "begin\n" +
+                "read(v1);\n" +
+                "v1:=v1+10;\n" +
+                "write(v1)\n" +
+                "end. ";
+        System.out.println(TokenUtil.getToken(s));
+    }
 }

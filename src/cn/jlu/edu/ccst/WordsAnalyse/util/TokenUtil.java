@@ -6,23 +6,14 @@ import java.util.ArrayList;
 
 public class TokenUtil {
     public static Boolean isID(String s){
-        if(RegexUtil.match("[a-zA-Z]([a-zA-Z]|[0-9])*", s)){
-//            System.out.println(s);
-            return true;
-        }
-        return false;
+        //            System.out.println(s);
+        return RegexUtil.match("[a-zA-Z]([a-zA-Z0-9])*", s);
     }
     public static Boolean isINTC(String s){
-        if(RegexUtil.match("[1-9]([0-9])*", s)){
-            return true;
-        }
-        return false;
+        return RegexUtil.match("[1-9]([0-9])*", s);
     }
     public static Boolean isReservedWord(String s){
-        if(RegexUtil.match("program|type|var|integer|char|array|of|procedure|begin|while|do|if|then|else|fi|endwh|end|read|write|return", s)){
-            return true;
-        }
-        return false;
+        return RegexUtil.match("program|type|var|integer|char|array|of|procedure|begin|while|do|if|then|else|fi|endwh|end|read|write|return", s);
     }
 
 
@@ -30,11 +21,11 @@ public class TokenUtil {
 
 
     public static  Boolean doToken(String s){
-        InfoUtil.tokenList=new ArrayList<Token>();
+        InfoUtil.tokenList= new ArrayList<>();
         int row=1;
         int col=1;
         int col1=1;
-        Boolean isInAnnotation=false;
+        boolean isInAnnotation=false;
         String s1;
         StringBuffer s_temp = new StringBuffer();
         Token t;
@@ -45,8 +36,8 @@ public class TokenUtil {
                 t=new Token(row,col,"AnnotationHead","{");
                 InfoUtil.tokenList.add(t);
             }
-            if(s.charAt(i)=='}'&&isInAnnotation==true){
-                if(isInAnnotation==true){
+            if(s.charAt(i)=='}'){
+                if(isInAnnotation){
                     isInAnnotation=false;
                     t=new Token(row,col,"AnnotationHead","}");
                     InfoUtil.tokenList.add(t);
@@ -137,7 +128,14 @@ public class TokenUtil {
 
         return true;
     }
-
-
+    public static String getToken(String s){
+        InfoUtil.initialize();
+        TokenUtil.doToken(s);
+        StringBuilder stringBuilder=new StringBuilder();
+        for(int i=0;i< InfoUtil.tokenList.size();i++){
+            stringBuilder.append(InfoUtil.tokenList.get(i).toString());
+        }
+        return stringBuilder.toString();
+    }
 
 }

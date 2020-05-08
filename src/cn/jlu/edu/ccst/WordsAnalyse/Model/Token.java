@@ -52,6 +52,6 @@ public class Token{
                 ", col=" + col +
                 ", type='" + type + '\'' +
                 ", value='" + value + '\'' +
-                '}';
+                "}\n";
     }
 }
