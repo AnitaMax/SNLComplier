@@ -21,6 +21,7 @@ public class EditPanel extends JTextPane {
 
     public EditPanel() {
         super();
+        //setFontSize(16);
     }
     public void setShowLineNumber(boolean isShow) {
         this.showLineNumber = isShow;
@@ -48,9 +49,10 @@ public class EditPanel extends JTextPane {
         // 绘制行号的颜色
         //System.out.println("y:" + getY());
         g.setColor(new Color(90, 90, 90));
-        g.setFont(new Font(getFont().getName(), getFont().getStyle(), 16));
+        g.setFont(new Font(getFont().getName(), getFont().getStyle(), 14));
         for (int row = 0; row < rows; row++) {
-            g.drawString((row + 1)+"",2, getPositionY(row + 1));
+            //g.drawString((row + 1)+"",2, getPositionY(row + 1));
+            g.drawString((row + 1)+"",2, (int) ((fontSize*1.328)*(row+1)-5));
         }
     }
     public void setFontSize(int fontSize) {
@@ -84,7 +86,7 @@ public class EditPanel extends JTextPane {
                 y = (row * 20) - 5;
                 break;
             case 16:
-                y = (row * 23) - 6;
+                y = (row * 23) - 20;
                 break;
             case 18:
                 y = (row * 26) - 8;
