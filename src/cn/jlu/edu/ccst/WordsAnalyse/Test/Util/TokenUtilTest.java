@@ -62,46 +62,9 @@ class TokenUtilTest {
                 "            read(v1);\n" +
                 "            v1:=v1+10;\n" +
                 "            write(v1)\n" +
-                "        end";
+                "        end ";
         System.out.println(TokenUtil.getToken(s));
     }
 }
 
 
-/*
-测试程序
-        program p
-        type
-            t = integer;
-            a=array[3..5] of integer;
-            vv=record integer v3,cd end;
-        var
-            t v1;
-            char v2;
-            a v3;
-        {
-        测试注释
-        }
-        procedure test1(integer in1,in2);
-        begin
-            in1=in2
-        end
-
-        begin
-            v2:='1';
-            v2:=vv.cd;
-            read(v1);
-            v1:=v1+10;
-            write(v1)
-        end
-
-建议：
-        1. 词法分析后空格的token不要了，因为太多了，不方便查看和处理
-        2. 写的程序不用分号作为语句结束，分号是某些文法的
-        3. 保留字大写，最好大小写的关键字都能正常识别
-        4. record也是保留字
-        5. char '1'
-        6. 空行和注释行要算行数
-
-
- */

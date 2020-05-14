@@ -31,8 +31,10 @@ public class MainWindow extends JFrame {
         wordAnalyseButton = new JButton("词法分析");
         wordAnalyseButton.addActionListener(e -> {
             String code=codeTextPanel.getEditPanel().getText();
+            //System.out.println(code);
+            code=code.replace("\r","");
             var tokens= TokenUtil.getToken(code);
-            System.out.println(tokens);
+            //System.out.println(tokens);
             tokensTextPanel.getEditPanel().setText(tokens);
         });
         parsingButton = new JButton("语法分析");
