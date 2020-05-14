@@ -21,12 +21,14 @@
 5. char '1'
 6. 空行和注释行要算行数
 7.windows换行为‘\r\n’ 解决方法：在调用端统一将代码的换行符换为'\n'   
-```java
+8.直接以end结尾会被吞掉，end+空格结尾正常 ，end.报错，end.+空格
+```
+java
     String code;
     code=code.replace("\r","");
  ```
 ### 未解决
-1. 直接以end结尾会被吞掉，end+空格结尾正常 ，end.报错，end.+空格正常
+正常
 ## 4.示例程序
 ```
 program p
