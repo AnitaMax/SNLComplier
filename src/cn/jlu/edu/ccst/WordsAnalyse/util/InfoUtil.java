@@ -34,6 +34,7 @@ public class InfoUtil {
         seperatorList.add("..");
         seperatorList.add(" ");
         seperatorList.add(":");
+        seperatorList.add(",");
 
 
 
