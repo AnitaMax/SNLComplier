@@ -62,7 +62,7 @@ class TokenUtilTest {
                 "            read(v1);\n" +
                 "            v1:=v1+10;\n" +
                 "            write(v1)\n" +
-                "        end ";
+                "        end" ;
         System.out.println(TokenUtil.getToken(s));
     }
 }

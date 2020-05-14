@@ -20,7 +20,7 @@ public class TokenUtil {
 
 
 
-    public static  Boolean doToken(String s){
+    public static  Boolean doToken(String ss){
         InfoUtil.tokenList= new ArrayList<>();
         int row=1;
         int col=1;
@@ -28,6 +28,9 @@ public class TokenUtil {
         boolean isInAnnotation=false;
         String s1;
         StringBuffer s_temp = new StringBuffer();
+        StringBuffer s = new StringBuffer();
+        s.append(ss);
+        s.append(' ');
         Token t;
 
         for(int i=0;i<s.length();i++){
