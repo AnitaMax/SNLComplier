@@ -16,6 +16,7 @@ public class NFABuilderWithStack {
     public final static  char CHARSET_LEFT_OPERATOR = '[';
     public final static  char CHARSET_MIDDLE_OPERATOR = '-';
     public final static  char CHARSET_RIGHT_OPERATOR = ']';
+    public final static  char CONVERT_TO_ORIGIN = '\\';
     public final static  char ANYCHAR = '.';
 
     static HashMap<Character, Integer> operatorPriorityMap=new HashMap<>(){{
@@ -42,7 +43,11 @@ public class NFABuilderWithStack {
             if(token==GROUP_LEFT_OPERATOR||token==GROUP_RIGHT_OPERATOR||token==UNION_OPERATOR||token==CHARSET_MIDDLE_OPERATOR||token==CHARSET_LEFT_OPERATOR){
                 continue;
             }
-
+//            if(token==CONVERT_TO_ORIGIN){
+//                i=i+1;
+//                var token2=exp.charAt(i);
+//                output.append(token2);
+//            }
             if(i<exp.length()-1){
                 var lookahead=exp.charAt(i+1);
 
@@ -52,7 +57,9 @@ public class NFABuilderWithStack {
                         lookahead==GROUP_RIGHT_OPERATOR||
                         lookahead==UNION_OPERATOR||
                         lookahead==CHARSET_MIDDLE_OPERATOR||
-                        lookahead==CHARSET_RIGHT_OPERATOR){
+                        lookahead==CHARSET_RIGHT_OPERATOR
+                        //||lookahead==CONVERT_TO_ORIGIN
+                ){
                     continue;
                 }
                 if(i<exp.length()-2&&exp.charAt(i+2)==CHARSET_MIDDLE_OPERATOR){
@@ -122,6 +129,10 @@ public class NFABuilderWithStack {
         for (int i=0;i<exp.length();i++) {
             var token=exp.charAt(i);
             switch (token){
+//                case NFABuilderWithStack.CONVERT_TO_ORIGIN:
+//                    stack.push(NFA.createBasicNFA(exp.charAt(i+1)));
+//                    i++;
+//                    break;
                 case NFABuilderWithStack.UNION_OPERATOR:
                     var bNFA=stack.pop();
                     var aNFA=stack.pop();

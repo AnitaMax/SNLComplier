@@ -1,0 +1,104 @@
+Program->ProgramHead DeclarePart ProgramBody
+ProgramHead->PROGRAM ProgramName
+ProgramName->ID
+DeclarePart->TypeDec VarDec ProcDec
+TypeDec->EPSILON
+TypeDec->TypeDeclaration
+TypeDeclaration->TYPE TypeDecList
+TypeDecList->TypeId = TypeName ; TypeDecMore
+TypeDecMore->EPSILON
+TypeDecMore->TypeDecList
+TypeId->ID
+TypeName->BaseType
+TypeName->StructureType
+TypeName->ID
+BaseType->INTEGER
+BaseType->CHAR
+StructureType->ArrayType
+StructureType->RecType
+ArrayType->ARRAY [ low .. top ] OF BaseType
+Low->INTC
+Top->INTC
+RecType->RECORD FieldDecList END
+FieldDecList->BaseType IdList ; FieldDecMore
+FieldDecList->ArrayType IdList ; FieldDecMore
+FieldDecMore->EPSILON
+FieldDecMore->FieldDecList
+IdList->ID IdMore
+IdMore->EPSILON
+IdMore->, IdList
+VarDec->EPSILON
+VarDec->VarDeclaration
+VarDeclaration->VAR VarDecList
+VarDecList->TypeName VarIdList ; VarDecMore
+VarDecMore->EPSILON
+VarDecMore->VarDecList
+VarIdList->id VarIdMore
+VarIdMore->EPSILON
+VarIdMore->, VarIdList
+ProcDec->EPSILON
+ProcDec->ProcDeclaration
+ProcDeclaration->PROCEDURE ProcName ( ParamList ) ; ProcDecPart ProcBody ProcDecMore
+ProcDecMore->EPSILON
+ProcDecMore->ProcDeclaration
+ProcName->ID
+ParamList->EPSILON
+ParamList->ParamDecList
+ParamDecList->Param ParamMore
+ParamMore->EPSILON
+ParamMore->; ParamDecList
+Param->TypeName FormList
+Param->VAR TypeName FormList
+FormList->ID FidMore
+FidMore->EPSILON
+FidMore->, FormList
+ProcDecPart->DeclarePart
+ProcBody->ProgramBody
+ProgramBody->BEGIN StmList END
+StmList->Stm StmMore
+StmMore->EPSILON
+StmMore->; StmList
+Stm->ConditionalStm
+Stm->LoopStm
+Stm->InputStm
+Stm->OutputStm
+Stm->ReturnStm
+Stm->ID AssCall
+AssCall->AssignmentRest
+AssCall->CallStmRest
+AssignmentRest->VariMore := Exp
+ConditionalStm->IF RelExp THEN StmList ELSE StmList FI
+LoopStm->WHILE RelExp DO StmList ENDWH
+InputStm->READ ( Invar )
+Invar->ID
+OutputStm->WRITE ( Exp )
+ReturnStm->RETURN ( Exp )
+CallStmRest->( ActParamList )
+ActParamList->EPSILON
+ActParamList->Exp ActParamMore
+ActParamMore->EPSILON
+ActParamMore->, ActParamList
+RelExp->Exp OtherRelE
+OtherRelE->CmpOp Exp
+Exp->Term OtherTerm
+OtherTerm->EPSILON
+OtherTerm->AddOp Exp
+Term->Factor OtherFactor
+OtherFactor->EPSILON
+OtherFactor->MultOp Term
+Factor->( Exp )
+Factor->INTC
+Factor->Variable
+Variable->ID VariMore
+VariMore->EPSILON
+VariMore->[ Exp ]
+VariMore->. FieldVar
+FieldVar->ID FieldVarMore
+FieldVarMore->EPSILON
+FieldVarMore->[ Exp ]
+CmpOp-><
+CmpOp->=
+AddOp->+
+AddOp->-
+MultOp->*
+MultOp->/

@@ -120,4 +120,12 @@ class RegexUtilTest {
         assertFalse(RegexUtil.match("'.'", "''"));
     }
 
+//    @Test
+//    void matchConvert (){
+//        System.out.println("Test convert symbol works as expect");
+//        assertTrue(RegexUtil.match("'\\.'", "'.'"));
+//        assertFalse(RegexUtil.match("'\\.'", "'A'"));
+//        assertTrue(RegexUtil.match("\\[", "["));
+//    }
+
 }
