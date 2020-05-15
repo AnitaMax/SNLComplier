@@ -41,4 +41,7 @@ public class SNLProdcutionElement extends ProductionElement{
         }
         return false;
     }
+    public static SNLProdcutionElement getStartElement(){
+        return new SNLProdcutionElement("Program");
+    }
 }

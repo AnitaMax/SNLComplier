@@ -38,7 +38,7 @@ public class ProductionElementController {
         for (var line:lines) {
             var production=createProduction(line);
             productions.add(production);
-            System.out.println(production.toString());
+            //System.out.println(production.toString());
         }
         System.out.println("\n读取产生式"+productions.size()+"条");
     }
@@ -85,7 +85,7 @@ public class ProductionElementController {
                 var rightElement= getSNLElement(element);
                 rightElements.add(rightElement);
             }
-            System.out.print("\n");
+            //System.out.print("\n");
             //创建产生式类
             var production=new Production(leftElement,rightElements);
             //将产生式关联到左部的元素中

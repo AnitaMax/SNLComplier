@@ -13,6 +13,7 @@ public class LL1Machine {
 
     public LL1Machine() {
         productionElementController=new ProductionElementController("../productionLines.txt");
+        productionElementController.setProductionPredict();
     }
 
 
@@ -31,6 +32,7 @@ public class LL1Machine {
     }
     public AnalyseResult parsing(List<Token> tokens, ProductionElement startEle){
         var result=new AnalyseResult();
+
         //初始化输入栈
         Stack<ProductionElement> analysingStack=new Stack<>();
         analysingStack.push(startEle);
@@ -64,18 +66,23 @@ public class LL1Machine {
                 var productionsRalted=ele.getProductionsStartedWiththis();
                 boolean success=false;//是否有对应的产生式可以匹配
                 for (var producton:productionsRalted) {
-                    for (var pred:producton.getPredict()) {
-                        if(pred.accept(token)){
-                            success=true;
-                            result.getLogs().add(getAnalyseLog(token,analysingStack,"替换"+producton.toString()));
-                            //产生式是否是EPSILON
-                            if(producton.getRight().get(1).getContent().equals("EPSILON")){
-                                analysingStack.pop();
-                            }else{
-                                analysingStack.pop();
-                                producton.getRight().forEach(analysingStack::push);
+                    if(producton.getPredict()==null||producton.getPredict().isEmpty()){
+                        System.out.println("产生式 "+producton+" predict集为空！");
+                    }else {
+                        for (var pred : producton.getPredict()) {
+                            if (pred.accept(token)) {
+                                success = true;
+                                result.getLogs().add(getAnalyseLog(token, analysingStack, "替换" + producton.toString()));
+                                //产生式是否是EPSILON
+                                if (producton.getRight().get(1).getContent().equals("EPSILON")) {
+                                    analysingStack.pop();
+                                } else {
+                                    analysingStack.pop();
+                                    producton.getRight().forEach(analysingStack::push);
+                                }
+                                i--;
+                                break;
                             }
-                            i--;
                         }
                     }
                 }
@@ -92,6 +99,8 @@ public class LL1Machine {
             result.setSuccess(true);
             return result;
         }
+        result.setSuccess(false);
+        result.setFailResult("输入内容不全！分析栈非空！");
         return result;
     }
 }
