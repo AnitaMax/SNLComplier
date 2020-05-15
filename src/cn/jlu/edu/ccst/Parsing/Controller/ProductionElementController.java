@@ -10,13 +10,30 @@ import java.util.HashMap;
 
 public class ProductionElementController {
     HashMap<String, ProductionElement> elementHashMap=new HashMap<>();//提供非终极符、INTC、ID、分隔符等 到元素的映射，进而找到相应的产生式。
+    ArrayList<Production> productions=new ArrayList<>();
+
+    public HashMap<String, ProductionElement> getElementHashMap() {
+        return elementHashMap;
+    }
+
+    public void setElementHashMap(HashMap<String, ProductionElement> elementHashMap) {
+        this.elementHashMap = elementHashMap;
+    }
+
+    public ArrayList<Production> getProductions() {
+        return productions;
+    }
+
+    public void setProductions(ArrayList<Production> productions) {
+        this.productions = productions;
+    }
 
     public ProductionElementController() {
     }
 
     //Todo :从path中读取产生式并保存到hashmap中
     public ProductionElementController(String path) {
-        ArrayList<Production> productions=new ArrayList<>();
+
         var lines= FileReaderUtil.readFile("../productionLines.txt");
         for (var line:lines) {
             var production=createProduction(line);
@@ -35,6 +52,12 @@ public class ProductionElementController {
         var element=elementHashMap.get(elementString);
 
         element.setFollowSet(null);
+    }
+
+    public void setProductionPredict(){
+        for (var production:productions) {
+            production.setPredict(null);
+        }
     }
     //完成:实现从产生式字符串构造Production
     /**
