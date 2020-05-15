@@ -76,13 +76,13 @@ public class ProductionElementController {
             String left=elements[0];
             String[] right=elements[1].split(" ");
             //处理左部
-            var leftElement=getElement(left);
+            var leftElement= getSNLElement(left);
             if(leftElement.isEnd())
                 throw new RuntimeException(productionString+"产生式左部错误");
             //处理右部
             ArrayList<ProductionElement> rightElements=new ArrayList<>();
             for(var element :right){
-                var rightElement=getElement(element);
+                var rightElement= getSNLElement(element);
                 rightElements.add(rightElement);
             }
             System.out.print("\n");
@@ -97,7 +97,7 @@ public class ProductionElementController {
         }
     }
 
-    public ProductionElement getElement(String content){
+    public ProductionElement getSNLElement(String content){
         if(!elementHashMap.containsKey(content)){
             elementHashMap.put(content,new SNLProdcutionElement(content));
         }
