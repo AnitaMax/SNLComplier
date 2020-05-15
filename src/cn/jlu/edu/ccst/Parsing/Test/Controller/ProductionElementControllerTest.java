@@ -5,12 +5,10 @@ import cn.jlu.edu.ccst.Parsing.Util.FileReaderUtil;
 import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.transform.Source;
-
-import java.io.*;
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProductionElementControllerTest {
 
@@ -98,6 +96,12 @@ class ProductionElementControllerTest {
         var ele4=con.getElement("INTC");
         assertTrue(ele4.isEnd());
         assertFalse(ele4.isFixed());
+
+    }
+
+    @Test
+    void readProductionsFromFile(){
+        var con=new ProductionElementController("../productionLines.txt");
 
     }
 }
