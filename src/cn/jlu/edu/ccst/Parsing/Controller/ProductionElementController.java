@@ -4,11 +4,9 @@ import cn.jlu.edu.ccst.Parsing.Model.Production;
 import cn.jlu.edu.ccst.Parsing.Model.ProductionElement;
 import cn.jlu.edu.ccst.Parsing.Model.SNLProdcutionElement;
 import cn.jlu.edu.ccst.Parsing.Util.FileReaderUtil;
-import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.regex.Pattern;
 
 public class ProductionElementController {
     HashMap<String, ProductionElement> elementHashMap=new HashMap<>();//提供非终极符、INTC、ID、分隔符等 到元素的映射，进而找到相应的产生式。
@@ -25,7 +23,16 @@ public class ProductionElementController {
         }
     }
 
+    public void SetElementFisrt(String elementString){
+        var element=elementHashMap.get(elementString);
 
+        element.setFirstSet(null);
+    }
+    public void SetElementFollow(String elementString){
+        var element=elementHashMap.get(elementString);
+
+        element.setFollowSet(null);
+    }
     //完成:实现从产生式字符串构造Production
     /**
      * 从产生式字符串构造Production
