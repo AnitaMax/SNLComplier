@@ -89,7 +89,7 @@ public class LL1Machine {
                 if(!success){
                     result.getLogs().add(getAnalyseLog(token,analysingStack,"没有相应的产生式"));
                     result.setSuccess(false);
-                    result.setFailResult("没有相应的产生式");
+                    result.setFailResult("没有相应的产生式 Token："+token);
                     return result;
                 }
             }

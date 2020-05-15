@@ -28,4 +28,13 @@ public class AnalyseLog{
     public void setAction(String action) {
         this.action = action;
     }
+
+    @Override
+    public String toString() {
+        return "AnalyseLog{" +
+                "stack='" + stack + '\'' +
+                ", input='" + input + '\'' +
+                ", action='" + action + '\'' +
+                '}';
+    }
 }

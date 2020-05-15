@@ -47,8 +47,8 @@ class LL1MachineTest {
         TokenUtil.doToken(s);
         var tokens=InfoUtil.tokenList;
         var result2=lL1Machine.parsing(tokens,SNLProdcutionElement.getStartElement());
-        System.out.println(result);
-        assertTrue(result.isSuccess());
+        System.out.println(result2);
+        assertTrue(result2.isSuccess());
     }
 
 }
