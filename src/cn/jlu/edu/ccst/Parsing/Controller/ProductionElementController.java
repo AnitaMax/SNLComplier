@@ -3,23 +3,30 @@ package cn.jlu.edu.ccst.Parsing.Controller;
 import cn.jlu.edu.ccst.Parsing.Model.Production;
 import cn.jlu.edu.ccst.Parsing.Model.ProductionElement;
 import cn.jlu.edu.ccst.Parsing.Model.SNLProdcutionElement;
+import cn.jlu.edu.ccst.Parsing.Util.FileReaderUtil;
 import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class ProductionElementController {
-    HashMap<String, ProductionElement> elementHashMap;//提供非终极符、INTC、ID、分隔符等 到元素的映射，进而找到相应的产生式。
+    HashMap<String, ProductionElement> elementHashMap=new HashMap<>();//提供非终极符、INTC、ID、分隔符等 到元素的映射，进而找到相应的产生式。
 
     public ProductionElementController() {
     }
 
     //Todo :从path中读取产生式并保存到hashmap中
     public ProductionElementController(String path) {
+        var lines= FileReaderUtil.readFile("../productionLines.txt");
+        for (var line:lines
+             ) {
 
+        }
     }
 
-    //TODO:实现从产生式字符串构造Production
+
+    //完成:实现从产生式字符串构造Production
     /**
      * 从产生式字符串构造Production
      * 注意：表示空串的“yifusiluo”艾普西龙 写作 EPSILON
@@ -40,17 +47,21 @@ public class ProductionElementController {
             if(leftElement.isEnd())
                 throw new RuntimeException(productionString+"产生式左部错误");
             //处理右部
+            ArrayList<ProductionElement> rightElements=new ArrayList<>();
             for(var element :right){
                 var rightElement=getElement(element);
+                rightElements.add(rightElement);
             }
             System.out.print("\n");
             //创建产生式类
+            var production=new Production(leftElement,rightElements);
             //将产生式关联到左部的元素中
+            leftElement.getProductionsStartedWiththis().add(production);
             //返回结果
+            return production;
         }else{
             throw new RuntimeException("产生式"+productionString+"不正确");
         }
-        return null;
     }
 
     public ProductionElement getElement(String content){

@@ -15,7 +15,7 @@ public class SNLProdcutionElement extends ProductionElement{
             this.isFixed= !content.equals("INTC") && !content.equals("ID");
         }else{
             //非终结符
-            this.isEnd=true;
+            this.isEnd=false;
         }
     }
 }

@@ -10,7 +10,7 @@ public class ProductionElement {
     ArrayList<Production> productionsStartedWiththis;//非终极符有效。以此非终极符开始的产生式。
 
     ArrayList<ProductionElement> firstSet;
-    ArrayList<ProductionElement> endSet;
+    ArrayList<ProductionElement> followSet;
 
     public ProductionElement(boolean isEnd, boolean isFixed, String content) {
         this.isEnd = isEnd;
@@ -53,6 +53,22 @@ public class ProductionElement {
         this.productionsStartedWiththis = productionsStartedWiththis;
     }
 
+    public ArrayList<ProductionElement> getFirstSet() {
+        return firstSet;
+    }
+
+    public void setFirstSet(ArrayList<ProductionElement> firstSet) {
+        this.firstSet = firstSet;
+    }
+
+    public ArrayList<ProductionElement> getFollowSet() {
+        return followSet;
+    }
+
+    public void setFollowSet(ArrayList<ProductionElement> followSet) {
+        this.followSet = followSet;
+    }
+
     @Override
     public String toString() {
         return "ProductionElement{" +
@@ -61,7 +77,7 @@ public class ProductionElement {
                 ", Content='" + Content + '\'' +
                 ", productionsStartedWiththis=" + productionsStartedWiththis +
                 ", firstSet=" + firstSet +
-                ", endSet=" + endSet +
+                ", endSet=" + followSet +
                 '}';
     }
 }

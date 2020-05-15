@@ -84,6 +84,20 @@ class ProductionElementControllerTest {
     @Test
     void getElement() {
         var con=new ProductionElementController();
-        con.getElement("INIC");
+        var ele1=con.getElement("INTC");
+        assertTrue(ele1.isEnd());
+        assertFalse(ele1.isFixed());
+
+        var ele2=con.getElement(";");
+        assertTrue(ele2.isEnd());
+        assertTrue(ele2.isFixed());
+
+        var ele3=con.getElement("Pro");
+        assertFalse(ele3.isEnd());
+
+        var ele4=con.getElement("INTC");
+        assertTrue(ele4.isEnd());
+        assertFalse(ele4.isFixed());
+
     }
 }

@@ -17,6 +17,7 @@ public class Production {
     public Production() {
     }
 
-
-
+    public void setPredict(ArrayList<ProductionElement> predict) {
+        this.predict = predict;
+    }
 }
