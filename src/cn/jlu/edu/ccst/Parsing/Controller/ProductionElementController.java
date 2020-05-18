@@ -66,7 +66,7 @@ public class ProductionElementController {
 
     public ArrayList<ProductionElement> findB(Production p){
         ArrayList<ProductionElement> right=p.getRight();
-        ArrayList<ProductionElement> BList=new ArrayList<ProductionElement>();
+        ArrayList<ProductionElement> BList=new ArrayList<>();
         for(int i=0;i<right.size();i++){
             boolean matchB=true;
             if(right.get(i).isEnd()){
@@ -86,7 +86,7 @@ public class ProductionElementController {
 
     }
     public ArrayList<ProductionElement> getFirstBETA(ArrayList<ProductionElement> right){
-        ArrayList<ProductionElement> firstBETA=new ArrayList<ProductionElement>();
+        ArrayList<ProductionElement> firstBETA=new ArrayList<>();
         int index=0;
         for(int i=0;i<right.size();i++){
             ProductionElement curElement=right.get(i);
@@ -116,7 +116,7 @@ public class ProductionElementController {
     public void iniFollowSet(){
         elementHashMap.put("$",new SNLProdcutionElement("$"));
         var element=elementHashMap.get("Program");
-        ArrayList<ProductionElement> followSet=new ArrayList<ProductionElement>();
+        ArrayList<ProductionElement> followSet=new ArrayList<>();
         followSet.add(elementHashMap.get("$"));
         isFinish=false;
 
@@ -133,7 +133,7 @@ public class ProductionElementController {
                     for(int k=0;k<right.size()-1;k++){
                         ProductionElement cur_ele=right.get(k);
                         if(!cur_ele.isEnd()){
-                            ArrayList<ProductionElement> restP=new ArrayList<ProductionElement>();
+                            ArrayList<ProductionElement> restP=new ArrayList<>();
                             for(int k1=k;k1<right.size();k1++){
                                 restP.add(right.get(k1));
                             }
@@ -149,7 +149,6 @@ public class ProductionElementController {
                                 }
                                 cur_followSet=removeRepeat(cur_followSet);
                                 int size2=cur_followSet.size();
-
 
                                 if(size1!=size2){
 
@@ -198,7 +197,7 @@ public class ProductionElementController {
         var element=elementHashMap.get(elementString);
         ArrayList<ProductionElement> firstSet;
         if(element.getFirstSet()==null){
-            firstSet=new ArrayList<ProductionElement>();
+            firstSet=new ArrayList<>();
         }else{
             firstSet=element.getFirstSet();
         }
