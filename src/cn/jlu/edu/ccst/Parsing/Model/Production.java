@@ -6,6 +6,11 @@ import java.util.ArrayList;
 
 public class Production {
     ProductionElement left;
+
+    public ArrayList<ProductionElement> getRight() {
+        return right;
+    }
+
     ArrayList<ProductionElement> right;
     ArrayList<ProductionElement> predict;
 
