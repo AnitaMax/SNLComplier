@@ -35,6 +35,6 @@ public class AnalyseLog{
                 "stack='" + stack + '\'' +
                 ", input='" + input + '\'' +
                 ", action='" + action + '\'' +
-                '}';
+                "}\n";
     }
 }

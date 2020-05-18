@@ -31,7 +31,6 @@ public class ProductionElementController {
     }
 
     public ProductionElementController() {
-
     }
 
     //完成 :从path中读取产生式并保存到hashmap中
@@ -65,7 +64,12 @@ public class ProductionElementController {
             System.out.println(entry.getValue().toString());
         }
     }
-
+    public void printProductions(){
+        for (var production:productions
+             ) {
+            System.out.println(production.toString());
+        }
+    }
     public ArrayList<ProductionElement> findB(Production p){
         ArrayList<ProductionElement> right=p.getRight();
         ArrayList<ProductionElement> BList=new ArrayList<>();
@@ -115,7 +119,6 @@ public class ProductionElementController {
         }
         return tempList;
     }
-
     public void iniFollowSet(){
 
         var element=elementHashMap.get("Program");
@@ -274,26 +277,15 @@ public class ProductionElementController {
     }
 
     public void setProductionPredict(){
-        for(int i=0;i<productions.size();i++){
-
-            Production cur_production=productions.get(i);
-            ArrayList<ProductionElement> right=cur_production.getRight();
-            if(right.get(0).isEnd()){
-                if(right.get(0)==elementHashMap.get("EPSILON")){
-                    cur_production.setPredict(right.get(0).getFollowSet());
-                }else{
-                    ArrayList<ProductionElement> predict=new ArrayList<>();
-                    predict.add(right.get(0));
-                    cur_production.setPredict(predict);
-                }
-
+        iniFirstSet();
+        iniFollowSet();
+        for (var production:productions) {
+            if(production.getRight().get(0)==getSNLElement("EPSILON")){
+                production.setPredict(production.getLeft().getFollowSet());
             }else{
-                cur_production.setPredict(right.get(0).getFirstSet());
+                production.setPredict(production.getLeft().getFirstSet());
             }
 
-        }
-        for(int j=0;j<productions.size();j++){
-            System.out.println(productions.get(j).toString());
         }
     }
 

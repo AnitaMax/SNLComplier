@@ -27,12 +27,12 @@ public class SNLProdcutionElement extends ProductionElement{
                 case "DoubleSeperator":
                 case "ReservedWord":
                 case "SingleSeperator":
-                    if(isFixed&& token.getValue().equals(Content))
+                    if(isFixed&& token.getValue().toUpperCase().equals(Content))
                         return true;
                     break;
                 case "ID":
                 case "INTC":
-                    if(!isFixed&& token.getType().equals(Content))
+                    if(!isFixed&& token.getType().toUpperCase().equals(Content))
                         return true;
                     break;
                 default:

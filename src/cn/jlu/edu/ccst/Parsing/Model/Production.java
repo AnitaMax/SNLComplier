@@ -51,11 +51,12 @@ public class Production {
             r.append(s.getContent());
             r.append(" ");
         }
-        StringBuilder s= new StringBuilder();
-        for(int i=0;i<predict.size();i++){
-            s.append(predict.get(i).getContent());
-            s.append(" ");
+        StringBuilder pre= new StringBuilder();
+        for (var s:predict) {
+            pre.append(s.getContent());
+            pre.append(" ");
         }
-        return "Production{" +left.getContent() +"->"+r+"}"+"predict:"+s;
+        return "Production{" +left.getContent() +"->"+r+" predictSet:"+pre.toString()+"}";
+
     }
 }

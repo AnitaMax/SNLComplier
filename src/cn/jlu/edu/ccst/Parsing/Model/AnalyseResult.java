@@ -31,7 +31,7 @@ public class AnalyseResult {
         return "AnalyseResult{" +
                 "isSuccess=" + isSuccess +
                 ", failResult='" + failResult + '\'' +
-                ", logs=" + logs +
+                ", logs=\n," + logs +
                 '}';
     }
 

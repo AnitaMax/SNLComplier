@@ -134,6 +134,9 @@ public class TokenUtil {
 
 
         }
+        //增加结束token
+        t=new Token(row,col1,"SingleSeperator","$");
+        InfoUtil.tokenList.add(t);
 
 
 
