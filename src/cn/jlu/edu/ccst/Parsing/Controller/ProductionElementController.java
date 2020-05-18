@@ -64,7 +64,12 @@ public class ProductionElementController {
             System.out.println(entry.getValue().toString());
         }
     }
-
+    public void printProductions(){
+        for (var production:productions
+             ) {
+            System.out.println(production.toString());
+        }
+    }
     public ArrayList<ProductionElement> findB(Production p){
         ArrayList<ProductionElement> right=p.getRight();
         ArrayList<ProductionElement> BList=new ArrayList<>();
@@ -272,8 +277,15 @@ public class ProductionElementController {
     }
 
     public void setProductionPredict(){
+        iniFirstSet();
+        iniFollowSet();
         for (var production:productions) {
-            production.setPredict(null);
+            if(production.getRight().get(0)==getSNLElement("EPSILON")){
+                production.setPredict(production.getLeft().getFollowSet());
+            }else{
+                production.setPredict(production.getLeft().getFirstSet());
+            }
+
         }
     }
 

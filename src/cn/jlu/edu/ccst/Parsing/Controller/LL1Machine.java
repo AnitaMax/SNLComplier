@@ -14,6 +14,7 @@ public class LL1Machine {
     public LL1Machine() {
         productionElementController=new ProductionElementController("../productionLines.txt");
         productionElementController.setProductionPredict();
+        productionElementController.printProductions();
     }
 
 
@@ -21,7 +22,7 @@ public class LL1Machine {
         //记录过程
         var log=new AnalyseLog();
         var stackStatus=new StringBuilder();
-        analysingStack.forEach(ele-> stackStatus.append(ele.getContent()).append(" "));
+        analysingStack.forEach(ele-> stackStatus.insert(0,ele.getContent()+" "));
         log.setStack(stackStatus.toString());
         if(token!=null)
             log.setInput(token.getType()+" "+token.getValue());
@@ -35,6 +36,7 @@ public class LL1Machine {
 
         //初始化输入栈
         Stack<ProductionElement> analysingStack=new Stack<>();
+        analysingStack.push(productionElementController.getSNLElement("$"));
         analysingStack.push(startEle);
         for (int i = 0; i < tokens.size(); i++) {
             var token=tokens.get(i);
@@ -70,15 +72,17 @@ public class LL1Machine {
                         System.out.println("产生式 "+producton+" predict集为空！");
                     }else {
                         for (var pred : producton.getPredict()) {
-                            if (pred.accept(token)) {
+                            if (!success&&pred.accept(token)) {
                                 success = true;
-                                result.getLogs().add(getAnalyseLog(token, analysingStack, "替换" + producton.toString()));
+                                result.getLogs().add(getAnalyseLog(token, analysingStack, "替换 " + producton.toString()));
                                 //产生式是否是EPSILON
-                                if (producton.getRight().get(1).getContent().equals("EPSILON")) {
+                                if (producton.getRight().get(0).getContent().equals("EPSILON")) {
                                     analysingStack.pop();
                                 } else {
                                     analysingStack.pop();
-                                    producton.getRight().forEach(analysingStack::push);
+                                    for (int m=producton.getRight().size()-1;m>=0;m--) {
+                                        analysingStack.push(producton.getRight().get(m));
+                                    }
                                 }
                                 i--;
                                 break;

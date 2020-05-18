@@ -51,6 +51,11 @@ public class Production {
             r.append(s.getContent());
             r.append(" ");
         }
-        return "Production{" +left.getContent() +"->"+r+"}";
+        StringBuilder pre= new StringBuilder();
+        for (var s:predict) {
+            pre.append(s.getContent());
+            pre.append(" ");
+        }
+        return "Production{" +left.getContent() +"->"+r+" predictSet:"+pre.toString()+"}";
     }
 }
