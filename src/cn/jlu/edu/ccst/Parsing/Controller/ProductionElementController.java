@@ -41,7 +41,7 @@ public class ProductionElementController {
         for (var line:lines) {
             var production=createProduction(line);
             productions.add(production);
-            System.out.println(production.toString());
+//            System.out.println(production.toString());
         }
         System.out.println("\n读取产生式"+productions.size()+"条");
     }
@@ -114,10 +114,10 @@ public class ProductionElementController {
         return tempList;
     }
     public void iniFollowSet(){
-        elementHashMap.put("$",new SNLProdcutionElement("$"));
+
         var element=elementHashMap.get("Program");
         ArrayList<ProductionElement> followSet=new ArrayList<>();
-        followSet.add(elementHashMap.get("$"));
+        followSet.add(getSNLElement("$"));
         isFinish=false;
 
         element.setFollowSet(followSet);
@@ -144,16 +144,17 @@ public class ProductionElementController {
                                 int size1=cur_followSet.size();
                                 cur_followSet.addAll(firstBETA);
                                 if(c==12){
-                                    int aaaa=1;
-
+                                    int aaa1a=1;
                                 }
+
                                 cur_followSet=removeRepeat(cur_followSet);
+                                cur_ele.setFollowSet(cur_followSet);
                                 int size2=cur_followSet.size();
 
                                 if(size1!=size2){
 
                                     isFinish=false;
-                                    cur_ele.setFollowSet(cur_followSet);
+
                                 }
 
                             }
@@ -173,13 +174,14 @@ public class ProductionElementController {
 
                             }
                             curFollowSet=removeRepeat(curFollowSet);
+                            Blist.get(j).setFollowSet(curFollowSet);
                             int size2=curFollowSet.size();
 
 
                             if(size1!=size2){
 
                                 isFinish=false;
-                                Blist.get(j).setFollowSet(curFollowSet);
+
                             }
                         }
 
@@ -189,7 +191,6 @@ public class ProductionElementController {
                 }
             }
         }
-
     }
 
     public void SetElementFisrt(String elementString){

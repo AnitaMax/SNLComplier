@@ -49,14 +49,14 @@ public class SNLProdcutionElement extends ProductionElement{
     public String toString() {
         String firstSetStr=" ";
         for(int i=0;i<firstSet.size();i++){
-            firstSetStr=firstSet.get(i).getContent()+firstSetStr;
+            firstSetStr=firstSet.get(i).getContent()+' '+firstSetStr;
         }
         String followSetStr=" ";
-//        if(!isEnd){
-//            for(int i=0;i<followSet.size();i++){
-//                followSetStr=followSet.get(i).getContent()+followSetStr;
-//            }
-//        }
+        if(!isEnd){
+            for(int i=0;i<followSet.size();i++){
+                followSetStr=followSet.get(i).getContent()+' '+followSetStr;
+            }
+        }
         return "ProductionElement{" +
                 " Content='" + Content + '\'' +
                 ", firstSet=" + firstSetStr +

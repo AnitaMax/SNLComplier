@@ -11,8 +11,8 @@ abstract public class ProductionElement {
     String Content; //存名字 如Product 或者 内容 如:=或PROGRAM或INT或EPSILON
     ArrayList<Production> productionsStartedWiththis=new ArrayList<>();//非终极符有效。以此非终极符开始的产生式。
 
-    ArrayList<ProductionElement> firstSet;
-    ArrayList<ProductionElement> followSet;
+    ArrayList<ProductionElement> firstSet=new ArrayList<>();
+    ArrayList<ProductionElement> followSet=new ArrayList<>();
 
     public ProductionElement(boolean isEnd, boolean isFixed, String content) {
         this.isEnd = isEnd;
