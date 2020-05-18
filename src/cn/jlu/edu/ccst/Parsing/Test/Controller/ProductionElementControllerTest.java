@@ -5,12 +5,10 @@ import cn.jlu.edu.ccst.Parsing.Util.FileReaderUtil;
 import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.transform.Source;
-
-import java.io.*;
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProductionElementControllerTest {
 
@@ -84,20 +82,26 @@ class ProductionElementControllerTest {
     @Test
     void getElement() {
         var con=new ProductionElementController();
-        var ele1=con.getElement("INTC");
+        var ele1=con.getSNLElement("INTC");
         assertTrue(ele1.isEnd());
         assertFalse(ele1.isFixed());
 
-        var ele2=con.getElement(";");
+        var ele2=con.getSNLElement(";");
         assertTrue(ele2.isEnd());
         assertTrue(ele2.isFixed());
 
-        var ele3=con.getElement("Pro");
+        var ele3=con.getSNLElement("Pro");
         assertFalse(ele3.isEnd());
 
-        var ele4=con.getElement("INTC");
+        var ele4=con.getSNLElement("INTC");
         assertTrue(ele4.isEnd());
         assertFalse(ele4.isFixed());
+
+    }
+
+    @Test
+    void readProductionsFromFile(){
+        var con=new ProductionElementController("../productionLines.txt");
 
     }
 }

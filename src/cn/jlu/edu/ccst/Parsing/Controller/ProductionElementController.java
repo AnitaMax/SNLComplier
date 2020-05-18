@@ -12,16 +12,37 @@ import java.util.Map;
 public class ProductionElementController {
     HashMap<String, ProductionElement> elementHashMap=new HashMap<>();//提供非终极符、INTC、ID、分隔符等 到元素的映射，进而找到相应的产生式。
     boolean isFinish;
+    ArrayList<Production> productions=new ArrayList<>();
+
+    public HashMap<String, ProductionElement> getElementHashMap() {
+        return elementHashMap;
+    }
+
+    public void setElementHashMap(HashMap<String, ProductionElement> elementHashMap) {
+        this.elementHashMap = elementHashMap;
+    }
+
+    public ArrayList<Production> getProductions() {
+        return productions;
+    }
+
+    public void setProductions(ArrayList<Production> productions) {
+        this.productions = productions;
+    }
+
     public ProductionElementController() {
     }
 
     //Todo :从path中读取产生式并保存到hashmap中
     public ProductionElementController(String path) {
-        var lines= FileReaderUtil.readFile("../productionLines.txt");
-        for (var line:lines
-             ) {
 
+        var lines= FileReaderUtil.readFile("../productionLines.txt");
+        for (var line:lines) {
+            var production=createProduction(line);
+            productions.add(production);
+            //System.out.println(production.toString());
         }
+        System.out.println("\n读取产生式"+productions.size()+"条");
     }
     public void iniFirstSet(){
         isFinish=false;
@@ -187,6 +208,12 @@ public class ProductionElementController {
 
     }
 
+    public void setProductionPredict(){
+        for (var production:productions) {
+            production.setPredict(null);
+        }
+    }
+
     //完成:实现从产生式字符串构造Production
     /**
      * 从产生式字符串构造Production
@@ -204,16 +231,16 @@ public class ProductionElementController {
             String left=elements[0];
             String[] right=elements[1].split(" ");
             //处理左部
-            var leftElement=getElement(left);
+            var leftElement= getSNLElement(left);
             if(leftElement.isEnd())
                 throw new RuntimeException(productionString+"产生式左部错误");
             //处理右部
             ArrayList<ProductionElement> rightElements=new ArrayList<>();
             for(var element :right){
-                var rightElement=getElement(element);
+                var rightElement= getSNLElement(element);
                 rightElements.add(rightElement);
             }
-            System.out.print("\n");
+            //System.out.print("\n");
             //创建产生式类
             var production=new Production(leftElement,rightElements);
             //将产生式关联到左部的元素中
@@ -225,7 +252,7 @@ public class ProductionElementController {
         }
     }
 
-    public ProductionElement getElement(String content){
+    public ProductionElement getSNLElement(String content){
         if(!elementHashMap.containsKey(content)){
             elementHashMap.put(content,new SNLProdcutionElement(content));
         }

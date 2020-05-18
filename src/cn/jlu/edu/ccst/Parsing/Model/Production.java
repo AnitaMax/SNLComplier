@@ -1,7 +1,5 @@
 package cn.jlu.edu.ccst.Parsing.Model;
 
-import cn.jlu.edu.ccst.WordsAnalyse.Model.Token;
-
 import java.util.ArrayList;
 
 public class Production {
@@ -12,6 +10,11 @@ public class Production {
     }
 
     ArrayList<ProductionElement> right;
+
+    public ArrayList<ProductionElement> getPredict() {
+        return predict;
+    }
+
     ArrayList<ProductionElement> predict;
 
     public Production(ProductionElement left, ArrayList<ProductionElement> right) {
@@ -24,5 +27,32 @@ public class Production {
 
     public void setPredict(ArrayList<ProductionElement> predict) {
         this.predict = predict;
+    }
+
+
+    public ProductionElement getLeft() {
+        return left;
+    }
+
+    public void setLeft(ProductionElement left) {
+        this.left = left;
+    }
+
+    public ArrayList<ProductionElement> getRight() {
+        return right;
+    }
+
+    public void setRight(ArrayList<ProductionElement> right) {
+        this.right = right;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder r= new StringBuilder();
+        for (var s:right) {
+            r.append(s.getContent());
+            r.append(" ");
+        }
+        return "Production{" +left.getContent() +"->"+r+"}";
     }
 }
