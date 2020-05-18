@@ -4,7 +4,6 @@ import cn.jlu.edu.ccst.Parsing.Model.Production;
 import cn.jlu.edu.ccst.Parsing.Model.ProductionElement;
 import cn.jlu.edu.ccst.Parsing.Model.SNLProdcutionElement;
 import cn.jlu.edu.ccst.Parsing.Util.FileReaderUtil;
-import cn.jlu.edu.ccst.WordsAnalyse.Model.Token;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +42,8 @@ public class ProductionElementController {
             productions.add(production);
 //            System.out.println(production.toString());
         }
+        //增加一个结束符"$"
+        getSNLElement("$");
         System.out.println("\n读取产生式"+productions.size()+"条");
     }
     public void iniFirstSet(){
