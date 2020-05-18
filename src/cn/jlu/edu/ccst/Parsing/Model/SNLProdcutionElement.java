@@ -11,7 +11,7 @@ public class SNLProdcutionElement extends ProductionElement{
     public SNLProdcutionElement(String content) {
         super();
         this.Content=content;
-        if(content.equals(content.toUpperCase())|| Pattern.matches("[+\\-/()\\[\\];=,<>*.]|..|:=",content)){
+        if(content.equals(content.toUpperCase())|| Pattern.matches("[$+\\-/()\\[\\];=,<>*.]|..|:=",content)){
             //终结符
             this.isEnd=true;
             this.isFixed= !content.equals("INTC") && !content.equals("ID");

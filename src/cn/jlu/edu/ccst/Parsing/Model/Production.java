@@ -39,6 +39,7 @@ public class Production {
     }
 
 
+
     public void setRight(ArrayList<ProductionElement> right) {
         this.right = right;
     }
