@@ -33,14 +33,14 @@ public class ProductionElementController {
     public ProductionElementController() {
     }
 
-    //Todo :从path中读取产生式并保存到hashmap中
+    //完成 :从path中读取产生式并保存到hashmap中
     public ProductionElementController(String path) {
 
         var lines= FileReaderUtil.readFile("../productionLines.txt");
         for (var line:lines) {
             var production=createProduction(line);
             productions.add(production);
-            //System.out.println(production.toString());
+            System.out.println(production.toString());
         }
         System.out.println("\n读取产生式"+productions.size()+"条");
     }
