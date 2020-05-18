@@ -1,10 +1,12 @@
 package cn.jlu.edu.ccst.Parsing.Test.Controller;
 
 import cn.jlu.edu.ccst.Parsing.Controller.ProductionElementController;
+import cn.jlu.edu.ccst.Parsing.Model.ProductionElement;
 import cn.jlu.edu.ccst.Parsing.Util.FileReaderUtil;
 import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -98,10 +100,32 @@ class ProductionElementControllerTest {
         assertFalse(ele4.isFixed());
 
     }
+    @Test
+    void testFirstSet(){
+        var con=new ProductionElementController("aaa");
+        con.iniFirstSet();
+        con.printSet();
+    }
+    @Test
+    void aaa(){
+        ArrayList<ProductionElement> curFollowSet=new ArrayList<ProductionElement>();
+
+
+
+    }
+    @Test
+    void testFollowSet(){
+        var con=new ProductionElementController("aaa");
+        con.iniFirstSet();
+        con.iniFollowSet();
+        con.printSet();
+
+    }
 
     @Test
     void readProductionsFromFile(){
         var con=new ProductionElementController("../productionLines.txt");
+
 
     }
 }

@@ -66,6 +66,9 @@ abstract public class ProductionElement {
     }
 
     public ArrayList<ProductionElement> getFollowSet() {
+        if(followSet==null){
+            followSet=new ArrayList<ProductionElement>();
+        }
         return followSet;
     }
 
@@ -75,13 +78,20 @@ abstract public class ProductionElement {
 
     @Override
     public String toString() {
+        String firstSetStr=" ";
+        for(int i=0;i<firstSet.size();i++){
+            firstSetStr=firstSet.get(i).getContent()+firstSetStr;
+        }
+        String followSetStr=" ";
+        if(!isEnd){
+            for(int i=0;i<followSet.size();i++){
+                followSetStr=followSet.get(i).getContent()+followSetStr;
+            }
+        }
         return "ProductionElement{" +
-                "isEnd=" + isEnd +
-                ", isFixed=" + isFixed +
-                ", Content='" + Content + '\'' +
-                ", productionsStartedWiththis=" + productionsStartedWiththis +
-                ", firstSet=" + firstSet +
-                ", endSet=" + followSet +
+                " Content='" + Content + '\'' +
+                ", firstSet=" + firstSetStr +
+                ", followSet=" + followSetStr +
                 '}';
     }
 }

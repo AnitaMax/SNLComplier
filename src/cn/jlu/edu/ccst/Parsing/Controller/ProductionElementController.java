@@ -4,6 +4,7 @@ import cn.jlu.edu.ccst.Parsing.Model.Production;
 import cn.jlu.edu.ccst.Parsing.Model.ProductionElement;
 import cn.jlu.edu.ccst.Parsing.Model.SNLProdcutionElement;
 import cn.jlu.edu.ccst.Parsing.Util.FileReaderUtil;
+import cn.jlu.edu.ccst.WordsAnalyse.Model.Token;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ public class ProductionElementController {
     HashMap<String, ProductionElement> elementHashMap=new HashMap<>();//提供非终极符、INTC、ID、分隔符等 到元素的映射，进而找到相应的产生式。
     boolean isFinish;
     ArrayList<Production> productions=new ArrayList<>();
-
+    int c=0;
     public HashMap<String, ProductionElement> getElementHashMap() {
         return elementHashMap;
     }
@@ -46,19 +47,28 @@ public class ProductionElementController {
     }
     public void iniFirstSet(){
         isFinish=false;
-        if(!isFinish){
+        int aa=0;
+        while(!isFinish){
             for (Map.Entry<String, ProductionElement> entry : elementHashMap.entrySet()) {
+                aa=aa+1;
                 SetElementFisrt(entry.getKey());
             }
         }
 
 
+
     }
+    public void printSet(){
+        for (Map.Entry<String, ProductionElement> entry : elementHashMap.entrySet()) {
+            System.out.println(entry.getValue().toString());
+        }
+    }
+
     public ArrayList<ProductionElement> findB(Production p){
         ArrayList<ProductionElement> right=p.getRight();
         ArrayList<ProductionElement> BList=new ArrayList<ProductionElement>();
         for(int i=0;i<right.size();i++){
-            Boolean matchB=true;
+            boolean matchB=true;
             if(right.get(i).isEnd()){
                 matchB=false;
             }
@@ -94,13 +104,26 @@ public class ProductionElementController {
         }
         return firstBETA;
     }
+    public ArrayList<ProductionElement> removeRepeat(ArrayList<ProductionElement> a){
+
+        ArrayList tempList = new ArrayList();
+        for(int i=0;i<a.size();i++){
+            if(!tempList.contains(a.get(i)))
+                tempList.add(a.get(i));
+        }
+        return tempList;
+    }
     public void iniFollowSet(){
+        elementHashMap.put("$",new SNLProdcutionElement("$"));
         var element=elementHashMap.get("Program");
         ArrayList<ProductionElement> followSet=new ArrayList<ProductionElement>();
         followSet.add(elementHashMap.get("$"));
         isFinish=false;
+
         element.setFollowSet(followSet);
-        if(!isFinish){
+        while(!isFinish){
+            c++;
+            isFinish=true;
             for (Map.Entry<String, ProductionElement> entry : elementHashMap.entrySet()) {
                 ProductionElement A=entry.getValue();
                 ArrayList<Production> productions=A.getProductionsStartedWiththis();
@@ -115,9 +138,27 @@ public class ProductionElementController {
                                 restP.add(right.get(k1));
                             }
                             ArrayList<ProductionElement> firstBETA=getFirstBETA(restP);
-                            ArrayList<ProductionElement> cur_followSet=cur_ele.getFollowSet();
-                            cur_followSet.addAll(firstBETA);
-                            cur_ele.setFollowSet(cur_followSet);
+                            if(firstBETA!=null){
+
+                                ArrayList<ProductionElement> cur_followSet=cur_ele.getFollowSet();
+                                int size1=cur_followSet.size();
+                                cur_followSet.addAll(firstBETA);
+                                if(c==12){
+                                    int aaaa=1;
+
+                                }
+                                cur_followSet=removeRepeat(cur_followSet);
+                                int size2=cur_followSet.size();
+
+
+                                if(size1!=size2){
+
+                                    isFinish=false;
+                                    cur_ele.setFollowSet(cur_followSet);
+                                }
+
+                            }
+
                         }
                     }
 
@@ -125,14 +166,30 @@ public class ProductionElementController {
                     ArrayList<ProductionElement> Blist=findB(curProduction);
                     for(int j=0;j<Blist.size();j++){
                         ArrayList<ProductionElement> curFollowSet=Blist.get(j).getFollowSet();
-                        curFollowSet.addAll(A.getFollowSet());
+                        int size1=curFollowSet.size();
+                        if(A.getFollowSet()!=null){
+                            curFollowSet.addAll(A.getFollowSet());
+                            if(c==12){
+                                int aaaa=1;
+
+                            }
+                            curFollowSet=removeRepeat(curFollowSet);
+                            int size2=curFollowSet.size();
+
+
+                            if(size1!=size2){
+
+                                isFinish=false;
+                                Blist.get(j).setFollowSet(curFollowSet);
+                            }
+                        }
+
                     }
 
 
                 }
             }
         }
-
 
     }
 
@@ -182,17 +239,22 @@ public class ProductionElementController {
 
                             break;
                         }else{
-                            for(int k=0;k<ele.getFirstSet().size();k++){//如果是非终结符，就把他的first集加入
 
-                                if(!firstSet.contains(ele.getFirstSet().get(k))){
-                                    isFinish=false;
-                                    firstSet.add(ele.getFirstSet().get(k));
+                            if(ele.getFirstSet()!=null){
+                                for(int k=0;k<ele.getFirstSet().size();k++){//如果是非终结符，就把他的first集加入
+
+                                    if(!firstSet.contains(ele.getFirstSet().get(k))){
+                                        isFinish=false;
+                                        firstSet.add(ele.getFirstSet().get(k));
+                                    }
+
                                 }
+                                if(!ele.getFirstSet().contains(elementHashMap.get("EPSILON"))){//如果含有EPSILON，要考虑下一符号，如果没有就不应再添加了
+                                    break;
+                                }
+                            }
 
-                            }
-                            if(!ele.getFirstSet().contains(elementHashMap.get("EPSILON"))){//如果含有EPSILON，要考虑下一符号，如果没有就不应再添加了
-                                break;
-                            }
+
 
                         }
 
