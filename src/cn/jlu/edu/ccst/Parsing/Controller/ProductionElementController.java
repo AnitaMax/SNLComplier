@@ -93,11 +93,13 @@ public class ProductionElementController {
     }
     public ArrayList<ProductionElement> getFirstBETA(ArrayList<ProductionElement> right){
         ArrayList<ProductionElement> firstBETA=new ArrayList<>();
-        int index=0;
+        int index=-1;
         for(int i=0;i<right.size();i++){
             ProductionElement curElement=right.get(i);
             if(curElement.getFirstSet().contains(elementHashMap.get("EPSILON"))){
                 index=i;
+            }else{
+                break;
             }
         }
         for(int i=0;i<=index;i++){
@@ -106,10 +108,56 @@ public class ProductionElementController {
                 if(firstSet.get(j)!=elementHashMap.get("EPSILON")){
                     firstBETA.add(firstSet.get(j));
                 }
+
+            }
+        }
+        if(index==-1){
+            ArrayList<ProductionElement> firstSet=right.get(0).getFirstSet();
+            for(int j=0;j<firstSet.size();j++){
+                if(firstSet.get(j)!=elementHashMap.get("EPSILON")){
+                    firstBETA.add(firstSet.get(j));
+                }
+
+            }
+        }
+        if(index==right.size()-1){
+            firstBETA.add(elementHashMap.get("EPSILON"));
+        }
+        return firstBETA;
+    }
+    public ArrayList<ProductionElement> getFirstBETAWithoutEPISION(ArrayList<ProductionElement> right){
+        ArrayList<ProductionElement> firstBETA=new ArrayList<>();
+        int index=-1;
+        for(int i=0;i<right.size();i++){
+            ProductionElement curElement=right.get(i);
+            if(curElement.getFirstSet().contains(elementHashMap.get("EPSILON"))){
+                index=i;
+            }else{
+                break;
+            }
+        }
+        for(int i=0;i<=index;i++){
+            ArrayList<ProductionElement> firstSet=right.get(i).getFirstSet();
+            for(int j=0;j<firstSet.size();j++){
+                if(firstSet.get(j)!=elementHashMap.get("EPSILON")){
+                    firstBETA.add(firstSet.get(j));
+                }
+
+            }
+        }
+        if(index==-1){
+            ArrayList<ProductionElement> firstSet=right.get(0).getFirstSet();
+            for(int j=0;j<firstSet.size();j++){
+                if(firstSet.get(j)!=elementHashMap.get("EPSILON")){
+                    firstBETA.add(firstSet.get(j));
+                }
+
             }
         }
         return firstBETA;
     }
+
+
     public ArrayList<ProductionElement> removeRepeat(ArrayList<ProductionElement> a){
 
         ArrayList tempList = new ArrayList();
@@ -143,15 +191,12 @@ public class ProductionElementController {
                             for(int k1=k;k1<right.size();k1++){
                                 restP.add(right.get(k1));
                             }
-                            ArrayList<ProductionElement> firstBETA=getFirstBETA(restP);
+                            ArrayList<ProductionElement> firstBETA=getFirstBETAWithoutEPISION(restP);
                             if(firstBETA!=null){
 
                                 ArrayList<ProductionElement> cur_followSet=cur_ele.getFollowSet();
                                 int size1=cur_followSet.size();
                                 cur_followSet.addAll(firstBETA);
-                                if(c==12){
-                                    int aaa1a=1;
-                                }
 
                                 cur_followSet=removeRepeat(cur_followSet);
                                 cur_ele.setFollowSet(cur_followSet);
@@ -277,14 +322,25 @@ public class ProductionElementController {
     }
 
     public void setProductionPredict(){
-        iniFirstSet();
-        iniFollowSet();
         for (var production:productions) {
-            if(production.getRight().get(0)==getSNLElement("EPSILON")){
-                production.setPredict(production.getLeft().getFollowSet());
+            if(!getFirstBETA(production.getRight()).contains(getSNLElement("EPSILON"))){
+                ArrayList<ProductionElement> plist=getFirstBETA(production.getRight());
+                production.setPredict(plist);
             }else{
-                production.setPredict(production.getLeft().getFirstSet());
+                ArrayList<ProductionElement> predictList=production.getLeft().getFollowSet();
+                for(int i=0;i<getFirstBETA(production.getRight()).size();i++){
+                    if(getFirstBETA(production.getRight()).get(i)!=getSNLElement("EPSILON")){
+                        predictList.add(getFirstBETA(production.getRight()).get(i));
+                    }
+                }
+                predictList=removeRepeat(predictList);
+                production.setPredict(predictList);
             }
+//            if(production.getRight().get(0)==getSNLElement("EPSILON")){
+//                production.setPredict(production.getLeft().getFollowSet());
+//            }else{
+//                production.setPredict(production.getLeft().getFirstSet());
+//            }
 
         }
     }

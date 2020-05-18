@@ -119,6 +119,7 @@ class ProductionElementControllerTest {
         con.iniFirstSet();
         con.iniFollowSet();
         con.setProductionPredict();
+        con.printProductions();
 
 
     }

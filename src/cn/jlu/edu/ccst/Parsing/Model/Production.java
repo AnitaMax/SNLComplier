@@ -15,7 +15,7 @@ public class Production {
         return predict;
     }
 
-    ArrayList<ProductionElement> predict;
+    ArrayList<ProductionElement> predict=new ArrayList<>();
 
     public Production(ProductionElement left, ArrayList<ProductionElement> right) {
         this.left = left;
