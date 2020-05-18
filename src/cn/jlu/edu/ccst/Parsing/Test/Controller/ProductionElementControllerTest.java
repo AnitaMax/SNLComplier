@@ -118,7 +118,8 @@ class ProductionElementControllerTest {
         var con=new ProductionElementController("aaa");
         con.iniFirstSet();
         con.iniFollowSet();
-        con.printSet();
+        con.setProductionPredict();
+
 
     }
 

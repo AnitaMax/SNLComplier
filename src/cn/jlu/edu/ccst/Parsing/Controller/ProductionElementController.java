@@ -31,6 +31,7 @@ public class ProductionElementController {
     }
 
     public ProductionElementController() {
+
     }
 
     //完成 :从path中读取产生式并保存到hashmap中
@@ -114,6 +115,7 @@ public class ProductionElementController {
         }
         return tempList;
     }
+
     public void iniFollowSet(){
 
         var element=elementHashMap.get("Program");
@@ -272,8 +274,26 @@ public class ProductionElementController {
     }
 
     public void setProductionPredict(){
-        for (var production:productions) {
-            production.setPredict(null);
+        for(int i=0;i<productions.size();i++){
+
+            Production cur_production=productions.get(i);
+            ArrayList<ProductionElement> right=cur_production.getRight();
+            if(right.get(0).isEnd()){
+                if(right.get(0)==elementHashMap.get("EPSILON")){
+                    cur_production.setPredict(right.get(0).getFollowSet());
+                }else{
+                    ArrayList<ProductionElement> predict=new ArrayList<>();
+                    predict.add(right.get(0));
+                    cur_production.setPredict(predict);
+                }
+
+            }else{
+                cur_production.setPredict(right.get(0).getFirstSet());
+            }
+
+        }
+        for(int j=0;j<productions.size();j++){
+            System.out.println(productions.get(j).toString());
         }
     }
 
