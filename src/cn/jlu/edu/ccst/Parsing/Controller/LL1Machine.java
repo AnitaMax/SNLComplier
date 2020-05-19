@@ -13,6 +13,8 @@ public class LL1Machine {
 
     public LL1Machine() {
         productionElementController=new ProductionElementController("../productionLines.txt");
+        productionElementController.iniFirstSet();
+        productionElementController.iniFollowSet();
         productionElementController.setProductionPredict();
         productionElementController.printProductions();
     }
