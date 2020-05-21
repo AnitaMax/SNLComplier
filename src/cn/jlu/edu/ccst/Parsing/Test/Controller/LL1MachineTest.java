@@ -35,7 +35,8 @@ class LL1MachineTest {
                 "        }\n" +
                 "        procedure test1(integer in1,in2);\n" +
                 "        begin\n" +
-                "            in1=in2\n" +
+                "        write(in1);\n"+
+                "        in1:=in2\n" +
                 "        end\n" +
                 "\n" +
                 "        begin\n" +

@@ -128,7 +128,7 @@ class ProductionElementControllerTest {
     @Test
     void readProductionsFromFile(){
         var con=new ProductionElementController("../productionLines.txt");
-
+        con.printProductions();
 
     }
 }
