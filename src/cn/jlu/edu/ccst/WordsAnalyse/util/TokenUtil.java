@@ -36,23 +36,20 @@ public class TokenUtil {
         for(int i=0;i<s.length();i++){
             if(s.charAt(i)=='{'){
                 isInAnnotation=true;
-                t=new Token(row,col,"AnnotationHead","{");
-                InfoUtil.tokenList.add(t);
+//                t=new Token(row,col,"AnnotationHead","{");
+//                InfoUtil.tokenList.add(t);
             }
             if(s.charAt(i)=='}'){
                 if(isInAnnotation){
                     isInAnnotation=false;
-                    t=new Token(row,col,"AnnotationHead","}");
-                    InfoUtil.tokenList.add(t);
+//                    t=new Token(row,col,"AnnotationTail","}");
+//                    InfoUtil.tokenList.add(t);
                     continue;
                 }else{
                     System.out.println("error,row:"+row+"col:"+col);
                 }
             }
-            if(s.charAt(i)=='\n'){
-                row++;
-                col=0;
-            }
+
             if(!isInAnnotation){
 
 
@@ -128,6 +125,10 @@ public class TokenUtil {
 
             }
             col++;
+            if(s.charAt(i)=='\n'){
+                row++;
+                col=0;
+            }
 
 
 
