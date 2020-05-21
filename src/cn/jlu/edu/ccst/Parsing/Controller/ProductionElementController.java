@@ -188,7 +188,7 @@ public class ProductionElementController {
                         ProductionElement cur_ele=right.get(k);
                         if(!cur_ele.isEnd()){
                             ArrayList<ProductionElement> restP=new ArrayList<>();
-                            for(int k1=k;k1<right.size();k1++){
+                            for(int k1=k+1;k1<right.size();k1++){
                                 restP.add(right.get(k1));
                             }
                             ArrayList<ProductionElement> firstBETA=getFirstBETAWithoutEPISION(restP);
@@ -220,12 +220,9 @@ public class ProductionElementController {
                         int size1=curFollowSet.size();
                         if(A.getFollowSet()!=null){
                             curFollowSet.addAll(A.getFollowSet());
-                            if(c==12){
-                                int aaaa=1;
-
-                            }
                             curFollowSet=removeRepeat(curFollowSet);
                             Blist.get(j).setFollowSet(curFollowSet);
+
                             int size2=curFollowSet.size();
 
 
