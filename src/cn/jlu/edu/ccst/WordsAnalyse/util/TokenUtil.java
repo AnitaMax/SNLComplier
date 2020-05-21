@@ -49,10 +49,7 @@ public class TokenUtil {
                     System.out.println("error,row:"+row+"col:"+col);
                 }
             }
-            if(s.charAt(i)=='\n'){
-                row++;
-                col=0;
-            }
+
             if(!isInAnnotation){
 
 
@@ -128,6 +125,10 @@ public class TokenUtil {
 
             }
             col++;
+            if(s.charAt(i)=='\n'){
+                row++;
+                col=0;
+            }
 
 
 
