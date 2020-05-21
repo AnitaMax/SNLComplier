@@ -16,7 +16,7 @@ class ProductionElementControllerTest {
 
     @Test
     void JudgeProduction()  {
-        var lines=FileReaderUtil.readFile("../productions.txt");
+        var lines=FileReaderUtil.readFile("productions.txt");
         String left="";
         String[] right;
         for (int row=0;row<lines.size();row++) {
@@ -56,7 +56,7 @@ class ProductionElementControllerTest {
     }
     @Test
     void JudgeProductionLines()  {
-        var lines=FileReaderUtil.readFile("../productionLines.txt");
+        var lines=FileReaderUtil.readFile("productionLines.txt");
         for (int row=0;row<lines.size();row++) {
             var line=lines.get(row);
             //去掉左右空格
@@ -102,7 +102,7 @@ class ProductionElementControllerTest {
     }
     @Test
     void testFirstSet(){
-        var con=new ProductionElementController("aaa");
+        var con=new ProductionElementController("productionLines.txt");
         con.iniFirstSet();
         con.printSet();
     }
@@ -115,7 +115,7 @@ class ProductionElementControllerTest {
     }
     @Test
     void testFollowSet(){
-        var con=new ProductionElementController("aaa");
+        var con=new ProductionElementController("productionLines.txt");
         con.iniFirstSet();
         con.iniFollowSet();
         con.setProductionPredict();
@@ -127,7 +127,7 @@ class ProductionElementControllerTest {
 
     @Test
     void readProductionsFromFile(){
-        var con=new ProductionElementController("../productionLines.txt");
+        var con=new ProductionElementController("productionLines.txt");
         con.printProductions();
 
     }

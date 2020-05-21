@@ -36,7 +36,7 @@ public class ProductionElementController {
     //完成 :从path中读取产生式并保存到hashmap中
     public ProductionElementController(String path) {
 
-        var lines= FileReaderUtil.readFile("../productionLines.txt");
+        var lines= FileReaderUtil.readFile(path);
         for (var line:lines) {
             var production=createProduction(line);
             productions.add(production);

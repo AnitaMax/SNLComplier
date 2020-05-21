@@ -12,7 +12,7 @@ public class LL1Machine {
     ProductionElementController productionElementController;
 
     public LL1Machine() {
-        productionElementController=new ProductionElementController("../productionLines.txt");
+        productionElementController=new ProductionElementController("productionLines.txt");
         productionElementController.iniFirstSet();
         productionElementController.iniFollowSet();
         productionElementController.setProductionPredict();
