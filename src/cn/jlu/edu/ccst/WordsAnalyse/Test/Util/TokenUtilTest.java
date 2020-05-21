@@ -1,12 +1,11 @@
 package cn.jlu.edu.ccst.WordsAnalyse.Test.Util;
 
-import cn.jlu.edu.ccst.WordsAnalyse.Model.Token;
 import cn.jlu.edu.ccst.WordsAnalyse.util.InfoUtil;
-import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 import cn.jlu.edu.ccst.WordsAnalyse.util.TokenUtil;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TokenUtilTest {
     @Test
@@ -64,6 +63,16 @@ class TokenUtilTest {
                 "            write(v1)\n" +
                 "        end" ;
         System.out.println(TokenUtil.getToken(s));
+    }
+
+
+    @Test
+    void getToken2() {
+        var s="eeeee\n\nkkk" ;
+        InfoUtil.initialize();
+        System.out.println(TokenUtil.getToken(s));
+        assertTrue(InfoUtil.tokenList.get(0).getRow()==1);
+
     }
 }
 

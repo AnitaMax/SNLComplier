@@ -1,28 +1,37 @@
 package cn.jlu.edu.ccst.View;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
 
-import javax.swing.ImageIcon;
-import javax.swing.JTextPane;
-import javax.swing.text.AttributeSet;
+import javax.swing.*;
 import javax.swing.text.Element;
-import javax.swing.text.Position;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import java.awt.*;
 
 public class EditPanel extends JTextPane {
     /**
      * 是否实现行号，默认不显示
      */
     private boolean showLineNumber = false;
-    private int fontSize = 16;//默认为16号字体
+    private int fontSize = 14;//默认为14号字体
+    private int fontLineHeight;
+    private FontMetrics fontMetrics;
 
+    @Override
+    public void setFont(Font font) {
+        super.setFont(font);
+        fontMetrics = getFontMetrics(getFont());
+        fontLineHeight = fontMetrics.getHeight();
+    }
+    public int getLineHeight() {
+       return fontLineHeight;
+    }
     public EditPanel() {
         super();
+        Font DEFAULT_FONT = new Font(Font.MONOSPACED, Font.PLAIN, fontSize);
+        setFont(DEFAULT_FONT);
         //setFontSize(16);
     }
+
+
     public void setShowLineNumber(boolean isShow) {
         this.showLineNumber = isShow;
     }
@@ -49,58 +58,59 @@ public class EditPanel extends JTextPane {
         // 绘制行号的颜色
         //System.out.println("y:" + getY());
         g.setColor(new Color(90, 90, 90));
-        g.setFont(new Font(getFont().getName(), getFont().getStyle(), 14));
+        g.setFont(new Font(getFont().getName(), getFont().getStyle(), getFontSize()));
         for (int row = 0; row < rows; row++) {
             //g.drawString((row + 1)+"",2, getPositionY(row + 1));
-            g.drawString((row + 1)+"",2, (int) ((fontSize*1.328)*(row+1)-5));
+            g.drawString((row + 1)+"",2,  (getLineHeight()*(row+1)-4));
         }
     }
-    public void setFontSize(int fontSize) {
-        if(fontSize!=12 &&
-                fontSize!=14 &&
-                fontSize!=16 &&
-                fontSize!=18 &&
-                fontSize!=20 &&
-                fontSize!=22 &&
-                fontSize!=24 ){
-            throw new RuntimeException("该行号不能识别");
-        }
-        this.fontSize = fontSize;
-    }
+
+//    public void setFontSize(int fontSize) {
+//        if(fontSize!=12 &&
+//                fontSize!=14 &&
+//                fontSize!=16 &&
+//                fontSize!=18 &&
+//                fontSize!=20 &&
+//                fontSize!=22 &&
+//                fontSize!=24 ){
+//            throw new RuntimeException("该行号不能识别");
+//        }
+//        this.fontSize = fontSize;
+//    }
     public int getFontSize() {
         return fontSize;
     }
-    /**
-     * 获得行号中y坐标的位置<br/>
-     * 在计算的过程中，有一个比率值，该比率值是根据getY()的返回值之差决定的。
-     * @param row 第几行
-     * @return 该行的y坐标位置
-     */
-    private int getPositionY(int row) {
-        int y = 0;
-        switch (getFontSize()) {
-            case 12:
-                y = (row * 18) - 4;
-                break;
-            case 14:
-                y = (row * 20) - 5;
-                break;
-            case 16:
-                y = (row * 23) - 20;
-                break;
-            case 18:
-                y = (row * 26) - 8;
-                break;
-            case 20:
-                y = (row * 29) - 10;
-                break;
-            case 22:
-                y = (row * 31) - 11;
-                break;
-            case 24:
-                y = (row * 34) - 12;
-                break;
-        }
-        return y;
-    }
+//    /**
+//     * 获得行号中y坐标的位置<br/>
+//     * 在计算的过程中，有一个比率值，该比率值是根据getY()的返回值之差决定的。
+//     * @param row 第几行
+//     * @return 该行的y坐标位置
+//     */
+//    private int getPositionY(int row) {
+//        int y = 0;
+//        switch (getFontSize()) {
+//            case 12:
+//                y = (row * 18) - 4;
+//                break;
+//            case 14:
+//                y = (row * 20) - 5;
+//                break;
+//            case 16:
+//                y = (row * 23) - 20;
+//                break;
+//            case 18:
+//                y = (row * 26) - 8;
+//                break;
+//            case 20:
+//                y = (row * 29) - 10;
+//                break;
+//            case 22:
+//                y = (row * 31) - 11;
+//                break;
+//            case 24:
+//                y = (row * 34) - 12;
+//                break;
+//        }
+//        return y;
+//    }
 }
