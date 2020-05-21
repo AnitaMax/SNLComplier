@@ -102,6 +102,12 @@ public class ProductionElementController {
                 break;
             }
         }
+        index=index+1;
+        if(index==right.size()){
+            index=index-1;
+            firstBETA.add(elementHashMap.get("EPSILON"));
+        }
+
         for(int i=0;i<=index;i++){
             ArrayList<ProductionElement> firstSet=right.get(i).getFirstSet();
             for(int j=0;j<firstSet.size();j++){
@@ -111,18 +117,7 @@ public class ProductionElementController {
 
             }
         }
-        if(index==-1){
-            ArrayList<ProductionElement> firstSet=right.get(0).getFirstSet();
-            for(int j=0;j<firstSet.size();j++){
-                if(firstSet.get(j)!=elementHashMap.get("EPSILON")){
-                    firstBETA.add(firstSet.get(j));
-                }
 
-            }
-        }
-        if(index==right.size()-1){
-            firstBETA.add(elementHashMap.get("EPSILON"));
-        }
         return firstBETA;
     }
     public ArrayList<ProductionElement> getFirstBETAWithoutEPISION(ArrayList<ProductionElement> right){
