@@ -36,7 +36,7 @@ public class SNLProdcutionElement extends ProductionElement{
                         return true;
                     break;
                 default:
-                    throw new RuntimeException("未识别的Token类型");
+                    //throw new RuntimeException("未识别的Token类型");
             }
         }
         return false;

@@ -27,7 +27,7 @@ public class LL1Machine {
         analysingStack.forEach(ele-> stackStatus.insert(0,ele.getContent()+" "));
         log.setStack(stackStatus.toString());
         if(token!=null)
-            log.setInput(token.getType()+" "+token.getValue());
+            log.setInput("line: "+token.getRow()+" "+token.getType()+" "+token.getValue());
         else
             log.setInput(" ");
         log.setAction(result);

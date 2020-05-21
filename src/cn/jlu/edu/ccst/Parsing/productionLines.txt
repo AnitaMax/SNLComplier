@@ -16,7 +16,7 @@ BaseType->INTEGER
 BaseType->CHAR
 StructureType->ArrayType
 StructureType->RecType
-ArrayType->ARRAY [ low .. top ] OF BaseType
+ArrayType->ARRAY [ Low .. Top ] OF BaseType
 Low->INTC
 Top->INTC
 RecType->RECORD FieldDecList END
@@ -33,7 +33,7 @@ VarDeclaration->VAR VarDecList
 VarDecList->TypeName VarIdList ; VarDecMore
 VarDecMore->EPSILON
 VarDecMore->VarDecList
-VarIdList->id VarIdMore
+VarIdList->ID VarIdMore
 VarIdMore->EPSILON
 VarIdMore->, VarIdList
 ProcDec->EPSILON

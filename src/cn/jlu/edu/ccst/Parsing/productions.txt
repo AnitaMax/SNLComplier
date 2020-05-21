@@ -16,7 +16,7 @@
 16)			             | CHAR
 17) StructureType	::= 	ArrayType
 18)	                 		| RecType						
-19)	ArrayType	::=	ARRAY  [ low .. top  ]  OF  BaseType
+19)	ArrayType	::=	ARRAY  [ Low .. Top  ]  OF  BaseType
 20)	Low          	::=  	INTC
 21) Top             	::=	INTC
 22) RecType		::=	RECORD  FieldDecList	 END
