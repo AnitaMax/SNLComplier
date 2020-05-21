@@ -23,7 +23,9 @@ class LL1MachineTest {
                 "        type\n" +
                 "            t = integer;\n" +
                 "            a=array[3..5] of integer;\n" +
-                "            vv=record integer v3,cd end;\n" +
+                "            vv=record " +
+                "                   integer v3,cd;" +
+                "                end;\n" +
                 "        var\n" +
                 "            t v1;\n" +
                 "            char v2;\n" +
