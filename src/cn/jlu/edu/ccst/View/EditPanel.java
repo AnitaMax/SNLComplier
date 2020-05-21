@@ -31,6 +31,11 @@ public class EditPanel extends JTextPane {
         //setFontSize(16);
     }
 
+    //设置不自动换行
+    @Override
+    public boolean getScrollableTracksViewportWidth() {
+        return false;
+    }
 
     public void setShowLineNumber(boolean isShow) {
         this.showLineNumber = isShow;
