@@ -35,7 +35,9 @@ program p
 type
     t = integer;
     a=array[3..5] of integer;
-    vv=record integer v3,cd end;
+    vv=record 
+        integer v3,cd;
+     end;
 var
     t v1;
     char v2;
@@ -45,10 +47,18 @@ var
 }
 procedure test1(integer in1,in2);
 begin
-    in1=in2
+    in1:=in2
 end
 
 begin
+    if i<2 then 
+        v2:=3
+    else
+        v2:=4
+    fi;
+    while i<3 do
+        v2:=v2+1
+    endwh;
     v2:='1';
     v2:=vv.cd;
     read(v1);
