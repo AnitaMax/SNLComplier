@@ -42,11 +42,11 @@ public class ProgramTree extends JDialog {
         //设置焦点位置
         scrollPane.getViewport().setViewPosition(new Point(scrollPane.getWidth(), 0));
 
-
+        setBounds(100, 100, 1200, 600);
         this.setVisible(true);
         //this.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
 
-        setBounds(100, 100, 1200, 600);
+
 
     }
 

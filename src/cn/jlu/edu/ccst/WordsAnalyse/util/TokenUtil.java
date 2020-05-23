@@ -28,7 +28,7 @@ public class TokenUtil {
         boolean isInAnnotation=false;
         String s1;
         StringBuffer s_temp = new StringBuffer();
-        StringBuffer s = new StringBuffer();
+        StringBuilder s = new StringBuilder();
         s.append(ss);
         s.append(' ');
         Token t;
@@ -46,7 +46,9 @@ public class TokenUtil {
 //                    InfoUtil.tokenList.add(t);
                     continue;
                 }else{
-                    System.out.println("error,row:"+row+"col:"+col);
+                    var err="error,row:"+row+"col:"+col;
+                    InfoUtil.errors.add(err);
+                    System.out.println(err);
                 }
             }
 
@@ -73,11 +75,13 @@ public class TokenUtil {
                             InfoUtil.tokenList.add(t);
                         }else {
                             if(s1.charAt(0)=='\''){
-                                int intc=(int)s1.charAt(1);
+                                int intc= s1.charAt(1);
                                 t=new Token(row,col,"INTC",String.valueOf(intc));
                                 InfoUtil.tokenList.add(t);
                             }else{
-                                System.out.println("error,row:"+row+"col:"+col1);
+                                var err="error,row:"+row+"col:"+col;
+                                InfoUtil.errors.add(err);
+                                System.out.println(err);
                             }
 
                         }
@@ -92,7 +96,9 @@ public class TokenUtil {
                                 continue;
                             }
                             else{
-                                System.out.println("error,row:"+row+"col:"+col);
+                                var err="error,row:"+row+"col:"+col;
+                                InfoUtil.errors.add(err);
+                                System.out.println(err);
                                 return false;
                             }
                         }

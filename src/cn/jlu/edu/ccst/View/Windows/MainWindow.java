@@ -38,8 +38,14 @@ public class MainWindow extends JFrame {
         wordAnalyseButton.addActionListener(e -> {
             String code=codeTextPanel.getEditPanel().getText();
             //System.out.println(code);
+            InfoUtil.initialize();
             code=code.replace("\r","");
             var tokens= TokenUtil.getToken(code);
+            StringBuilder errors= new StringBuilder();
+            if(InfoUtil.errors.size()>0){
+                InfoUtil.errors.forEach(s -> errors.append(s).append("\n"));
+                tokens+="\n"+errors;
+            }
             //System.out.println(tokens);
             tokensTextPanel.getEditPanel().setText(tokens);
         });

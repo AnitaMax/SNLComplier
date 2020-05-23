@@ -10,12 +10,14 @@ public class InfoUtil {
     public static List<Token> tokenList;
     public static List<String> reservedWordList;
     public static List<String> seperatorList;
+    public static List<String> errors;
 
 
 
     public static void initialize(){
-        reservedWordList=new ArrayList<String>();
-        seperatorList=new ArrayList<String>();
+        errors=new ArrayList<>();
+        reservedWordList=new ArrayList<>();
+        seperatorList=new ArrayList<>();
         seperatorList.add("+");
         seperatorList.add("-");
         seperatorList.add("*");
