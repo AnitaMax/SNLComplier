@@ -1,4 +1,4 @@
-package cn.jlu.edu.ccst.Parsing.Util;
+package cn.jlu.edu.ccst.Parsing.Controller.Util;
 
 import cn.jlu.edu.ccst.View.MainWindow;
 

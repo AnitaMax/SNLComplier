@@ -1,24 +1,22 @@
-package cn.jlu.edu.ccst.Parsing.Util.te;
-
+package cn.jlu.edu.ccst.Parsing.Controller;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 
-/**
- * TODO 同一层结点过多有BUG，应该对每一层的所有结点都进行个数统计，之后才绘制。
- * @author John
- *
- */
+
 public class TreePanel extends JPanel {
 
     private Node tree;				//保存整棵树
-    private int gridWidth = 80;		//每个结点的宽度
+    private int gridWidth = 120;		//每个结点的宽度
     private int gridHeight = 20;	//每个结点的高度
-    private int vGap = 50;			//每2个结点的垂直距离
+    private int vGap = 100;			//每2个结点的垂直距离
     private int hGap = 30;			//每2个结点的水平距离
 
     private int startY = 10;		//根结点的Y，默认距离顶部10像素
@@ -34,17 +32,18 @@ public class TreePanel extends JPanel {
     private Color linkLineColor = Color.BLACK;	//结点连线颜色
     private Color stringColor = Color.WHITE;	//结点描述文字的颜色
 
-    /**
-     * 默认构造
-     */
+    public void setLayerHashMap(HashMap<Integer, Integer> layerHashMap) {
+
+        this.layerHashMap = layerHashMap;
+    }
+
+    private HashMap<Integer, Integer> layerHashMap;
+    private HashMap<Integer, Integer> layerStartPosHashMap=new HashMap<>();
     public TreePanel(){
         this(null,CHILD_ALIGN_ABSOLUTE);
     }
 
-    /**
-     * 根据传入的Node绘制树，以绝对居中的方式绘制
-     * @param n 要绘制的树
-     */
+
     public TreePanel(Node n){
         this(n,CHILD_ALIGN_ABSOLUTE);
     }
@@ -54,26 +53,18 @@ public class TreePanel extends JPanel {
         this(null,childAlign);
     }
 
-    /**
-     * 根据孩子对齐策略childAlign绘制的树的根结点n
-     * @param n 要绘制的树的根结点
-     * @param childAlign 对齐策略
-     */
+
     public TreePanel(Node n, int childAlign){
         super();
         setTree(n);
         this.childAlign = childAlign;
     }
 
-    /**
-     * 设置用于绘制的树
-     * @param n 用于绘制的树的
-     */
+
     public void setTree(Node n) {
         tree = n;
     }
 
-    //重写而已，调用自己的绘制方法
     public void paintComponent(Graphics g){
         startX = (getWidth()-gridWidth)/2;
         super.paintComponent(g);
@@ -83,6 +74,9 @@ public class TreePanel extends JPanel {
 
 
     public void drawAllNode(Node n, int x, Graphics g){
+        if(n.getName()=="Program"){
+            layerStartPosHashMap=new HashMap<>();
+        }
         int y = n.getLayer()*(vGap+gridHeight)+startY;
         int fontY = y + gridHeight - 5;		//5为测试得出的值，你可以通过FM计算更精确的，但会影响速度
 
@@ -94,10 +88,19 @@ public class TreePanel extends JPanel {
 
         if(n.hasChild()){
             List<Node> c = n.getChilds();
-            int size = n.getChilds().size();
-            int tempPosx = childAlign == CHILD_ALIGN_RELATIVE
-                    ? x+gridWidth/2 - (size*(gridWidth+hGap)-hGap)/2
-                    : (getWidth() - size*(gridWidth+hGap)+hGap)/2;
+            int layerNum=c.get(0).getLayer();
+            int total_size=layerHashMap.get(layerNum);
+            int tempStartPosx;
+            if(layerStartPosHashMap.get(layerNum)==null){
+                tempStartPosx = startX+gridWidth/2 - (total_size*(gridWidth+hGap)-hGap)/2;
+                layerStartPosHashMap.put(layerNum,tempStartPosx);
+            }else{
+                tempStartPosx=layerStartPosHashMap.get(layerNum);
+
+            }
+
+            int tempPosx = tempStartPosx;
+
 
             int i = 0;
             for(Node node : c){
@@ -107,6 +110,18 @@ public class TreePanel extends JPanel {
                 drawAllNode(node, newX, g);
                 i++;
             }
+
+            Iterator<Map.Entry<Integer, Integer>> it = layerStartPosHashMap.entrySet().iterator();
+            while(it.hasNext()){
+                Map.Entry<Integer, Integer> entry = it.next();
+                Integer key = entry.getKey();
+                if(key==layerNum){
+                    it.remove();
+                }
+
+            }
+            tempStartPosx =tempStartPosx+(gridWidth+hGap)*c.size();
+            layerStartPosHashMap.put(layerNum,tempStartPosx);
         }
     }
 
@@ -114,10 +129,7 @@ public class TreePanel extends JPanel {
         return gridColor;
     }
 
-    /**
-     * 设置结点背景颜色
-     * @param gridColor 结点背景颜色
-     */
+
     public void setGridColor(Color gridColor) {
         this.gridColor = gridColor;
     }
@@ -126,10 +138,6 @@ public class TreePanel extends JPanel {
         return linkLineColor;
     }
 
-    /**
-     * 设置结点连接线的颜色
-     * @param gridLinkLine 结点连接线的颜色
-     */
     public void setLinkLineColor(Color gridLinkLine) {
         this.linkLineColor = gridLinkLine;
     }
@@ -138,10 +146,7 @@ public class TreePanel extends JPanel {
         return stringColor;
     }
 
-    /**
-     * 设置结点描述的颜色
-     * @param stringColor 结点描述的颜色
-     */
+
     public void setStringColor(Color stringColor) {
         this.stringColor = stringColor;
     }
@@ -150,10 +155,7 @@ public class TreePanel extends JPanel {
         return startY;
     }
 
-    /**
-     * 设置根结点的Y位置
-     * @param startY 根结点的Y位置
-     */
+
     public void setStartY(int startY) {
         this.startY = startY;
     }
@@ -162,10 +164,7 @@ public class TreePanel extends JPanel {
         return startX;
     }
 
-    /**
-     * 设置根结点的X位置
-     * @param startX 根结点的X位置
-     */
+
     public void setStartX(int startX) {
         this.startX = startX;
     }
