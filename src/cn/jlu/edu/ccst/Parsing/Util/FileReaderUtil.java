@@ -1,12 +1,12 @@
 package cn.jlu.edu.ccst.Parsing.Util;
 
-import cn.jlu.edu.ccst.View.MainWindow;
+import cn.jlu.edu.ccst.View.UI.MainWindow;
 
 import java.io.*;
 import java.util.ArrayList;
 
 public  class FileReaderUtil {
-    private static final File getResource(String file) {
+    private static File getResource(String file) {
         return new File(MainWindow.class.getClassLoader().getResource(file).getPath());
     }
     public static ArrayList<String> readFile(String filepath){

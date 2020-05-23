@@ -1,4 +1,4 @@
-package cn.jlu.edu.ccst.View;
+package cn.jlu.edu.ccst.View.UI;
 
 import javax.swing.*;
 

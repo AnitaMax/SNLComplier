@@ -1,4 +1,4 @@
-package cn.jlu.edu.ccst.View;
+package cn.jlu.edu.ccst.View.UI;
 
 import javax.swing.*;
 import javax.swing.text.Element;
@@ -28,7 +28,6 @@ public class EditPanel extends JTextPane {
         super();
         Font DEFAULT_FONT = new Font(Font.MONOSPACED, Font.PLAIN, fontSize);
         setFont(DEFAULT_FONT);
-        //setFontSize(16);
     }
 
     //设置不自动换行
@@ -61,61 +60,15 @@ public class EditPanel extends JTextPane {
         Element element = docu.getDefaultRootElement();
         int rows = element.getElementCount();
         // 绘制行号的颜色
-        //System.out.println("y:" + getY());
         g.setColor(new Color(90, 90, 90));
         g.setFont(new Font(getFont().getName(), getFont().getStyle(), getFontSize()));
         for (int row = 0; row < rows; row++) {
-            //g.drawString((row + 1)+"",2, getPositionY(row + 1));
             g.drawString((row + 1)+"",2,  (getLineHeight()*(row+1)-4));
         }
     }
 
-//    public void setFontSize(int fontSize) {
-//        if(fontSize!=12 &&
-//                fontSize!=14 &&
-//                fontSize!=16 &&
-//                fontSize!=18 &&
-//                fontSize!=20 &&
-//                fontSize!=22 &&
-//                fontSize!=24 ){
-//            throw new RuntimeException("该行号不能识别");
-//        }
-//        this.fontSize = fontSize;
-//    }
     public int getFontSize() {
         return fontSize;
     }
-//    /**
-//     * 获得行号中y坐标的位置<br/>
-//     * 在计算的过程中，有一个比率值，该比率值是根据getY()的返回值之差决定的。
-//     * @param row 第几行
-//     * @return 该行的y坐标位置
-//     */
-//    private int getPositionY(int row) {
-//        int y = 0;
-//        switch (getFontSize()) {
-//            case 12:
-//                y = (row * 18) - 4;
-//                break;
-//            case 14:
-//                y = (row * 20) - 5;
-//                break;
-//            case 16:
-//                y = (row * 23) - 20;
-//                break;
-//            case 18:
-//                y = (row * 26) - 8;
-//                break;
-//            case 20:
-//                y = (row * 29) - 10;
-//                break;
-//            case 22:
-//                y = (row * 31) - 11;
-//                break;
-//            case 24:
-//                y = (row * 34) - 12;
-//                break;
-//        }
-//        return y;
-//    }
+
 }
