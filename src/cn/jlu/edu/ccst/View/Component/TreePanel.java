@@ -1,6 +1,6 @@
 package cn.jlu.edu.ccst.View.Component;
 
-import cn.jlu.edu.ccst.Parsing.Controller.Node;
+import cn.jlu.edu.ccst.Parsing.Model.Node;
 
 import javax.swing.*;
 import java.awt.*;

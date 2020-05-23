@@ -5,26 +5,16 @@ import java.util.ArrayList;
 public class AnalyseResult {
     boolean isSuccess=true;
     String failResult="";
-
-
-    public ArrayList<AnalyseLog> getLogs() {
-        return logs;
-    }
-
-    public void setLogs(ArrayList<AnalyseLog> logs) {
-        this.logs = logs;
-    }
-
     ArrayList<AnalyseLog> logs=new ArrayList<>();
-
+    Tree tree;
 
     public AnalyseResult() {
+        //初始化语法树
+        Node root=new Node("Program");
+        tree=new Tree(root);
+
     }
 
-    public AnalyseResult(boolean isSuccess, String failResult) {
-        this.isSuccess = isSuccess;
-        this.failResult = failResult;
-    }
 
     @Override
     public String toString() {
@@ -49,5 +39,13 @@ public class AnalyseResult {
 
     public void setFailResult(String failResult) {
         this.failResult = failResult;
+    }
+
+    public ArrayList<AnalyseLog> getLogs() {
+        return logs;
+    }
+
+    public Tree getTree() {
+        return tree;
     }
 }

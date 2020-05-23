@@ -16,6 +16,7 @@ public class MainWindow extends JFrame {
     JPanel buttonPanel;//存放按钮
     JButton wordAnalyseButton;//词法分析按钮
     JButton parsingButton; //语法分析按钮
+    JButton generateTreeButton; //语法分析按钮
     EditScoll codeTextPanel;
     EditScoll tokensTextPanel;
     public static void main(String[] args) {
@@ -52,13 +53,39 @@ public class MainWindow extends JFrame {
             var tokens=InfoUtil.tokenList;
             //System.out.println(tokens);
             var lL1Machine=new LL1Machine();
-            var result2=lL1Machine.parsing(tokens, SNLProdcutionElement.getStartElement());
-            tokensTextPanel.getEditPanel().setText(result2.toString());
+            var result=lL1Machine.parsing(tokens, SNLProdcutionElement.getStartElement());
+            tokensTextPanel.getEditPanel().setText(result.toString());
+
+            new Table(result);
+
         });
 
-        buttonPanel=new JPanel(new GridLayout(1,2));
+        generateTreeButton=new JButton("生成语法树");
+        generateTreeButton.addActionListener(e ->{
+            String code=codeTextPanel.getEditPanel().getText();
+            //System.out.println(code);
+            code=code.replace("\r","");
+            InfoUtil.initialize();
+            TokenUtil.doToken(code);
+            var tokens=InfoUtil.tokenList;
+            //System.out.println(tokens);
+            var lL1Machine=new LL1Machine();
+            var result=lL1Machine.parsing(tokens, SNLProdcutionElement.getStartElement());
+            tokensTextPanel.getEditPanel().setText(result.toString());
+
+            if(result.isSuccess()){
+                new ProgramTree(result);
+            }else {
+                JOptionPane.showMessageDialog(this, result.getFailResult(),
+                        "编译出错", JOptionPane.ERROR_MESSAGE);
+            }
+
+        });
+
+        buttonPanel=new JPanel(new GridLayout(1,3));
         buttonPanel.add(wordAnalyseButton);
         buttonPanel.add(parsingButton);
+        buttonPanel.add(generateTreeButton);
 
 
         codeTextPanel=new EditScoll();
@@ -74,6 +101,9 @@ public class MainWindow extends JFrame {
         this.add(textPanel,BorderLayout.CENTER);
 
 
+        var aboutLabel=new JLabel("版权所有：郑汉亚 郑琪琛 ，盗用必究");
+
+        this.add(aboutLabel,BorderLayout.SOUTH);
         setFrame();
         setDefaultCode();
     }

@@ -1,15 +1,13 @@
 package cn.jlu.edu.ccst.Parsing.Test.Controller;
 
 import cn.jlu.edu.ccst.Parsing.Controller.LL1Machine;
-
+import cn.jlu.edu.ccst.Parsing.Model.Node;
 import cn.jlu.edu.ccst.Parsing.Model.SNLProdcutionElement;
-import cn.jlu.edu.ccst.Parsing.Controller.Node;
 import cn.jlu.edu.ccst.WordsAnalyse.util.InfoUtil;
 import cn.jlu.edu.ccst.WordsAnalyse.util.TokenUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -63,7 +61,7 @@ class LL1MachineTest  {
         var result2=lL1Machine.parsing(tokens,SNLProdcutionElement.getStartElement());
 //        System.out.println(result2);
         assertTrue(result2.isSuccess());
-        Node root=lL1Machine.getTree().getRoot();
+        Node root=result2.getTree().getRoot();
         root.printAllNode(root);
 
 

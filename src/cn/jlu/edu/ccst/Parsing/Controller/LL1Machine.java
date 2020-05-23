@@ -2,8 +2,8 @@ package cn.jlu.edu.ccst.Parsing.Controller;
 
 import cn.jlu.edu.ccst.Parsing.Model.AnalyseLog;
 import cn.jlu.edu.ccst.Parsing.Model.AnalyseResult;
+import cn.jlu.edu.ccst.Parsing.Model.Node;
 import cn.jlu.edu.ccst.Parsing.Model.ProductionElement;
-import cn.jlu.edu.ccst.Parsing.Model.Tree;
 import cn.jlu.edu.ccst.WordsAnalyse.Model.Token;
 
 import java.util.ArrayList;
@@ -13,23 +13,8 @@ import java.util.Stack;
 public class LL1Machine {
     ProductionElementController productionElementController;
 
-    public Tree getTree() {
-        return tree;
-    }
-
-    Tree tree;
-
-
-
-
-
-
-
 
     public LL1Machine() {
-
-        Node root=new Node("Program");
-        tree=new Tree(root);
         productionElementController=new ProductionElementController("productionLines.txt");
         productionElementController.iniFirstSet();
         productionElementController.iniFollowSet();
@@ -53,8 +38,6 @@ public class LL1Machine {
     }
     public AnalyseResult parsing(List<Token> tokens, ProductionElement startEle){
         var result=new AnalyseResult();
-
-
 
         //初始化输入栈
         Stack<ProductionElement> analysingStack=new Stack<>();
@@ -101,7 +84,7 @@ public class LL1Machine {
 
 
                                 //树形结构
-                                ArrayList<Node> leafNodes=tree.getLeafNode();
+                                ArrayList<Node> leafNodes=result.getTree().getLeafNode();
                                 String l_name=producton.getLeft().getContent();
                                 for(int k=0;k<leafNodes.size();k++){
                                     Node rootNode=leafNodes.get(k);

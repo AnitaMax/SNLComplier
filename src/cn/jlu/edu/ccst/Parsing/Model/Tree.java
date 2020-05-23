@@ -1,7 +1,5 @@
 package cn.jlu.edu.ccst.Parsing.Model;
 
-import cn.jlu.edu.ccst.Parsing.Controller.Node;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

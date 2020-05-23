@@ -1,34 +1,33 @@
 package cn.jlu.edu.ccst.View.Windows;
 
-import cn.jlu.edu.ccst.Parsing.Controller.LL1Machine;
-import cn.jlu.edu.ccst.Parsing.Model.SNLProdcutionElement;
+import cn.jlu.edu.ccst.Parsing.Model.AnalyseResult;
 import cn.jlu.edu.ccst.View.Model.AnalyseResultTableModel;
-import cn.jlu.edu.ccst.View.Util.CodeUtil;
-import cn.jlu.edu.ccst.WordsAnalyse.util.InfoUtil;
-import cn.jlu.edu.ccst.WordsAnalyse.util.TokenUtil;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Table extends JFrame{
+public class Table extends JDialog{
 
-    public Table(){
+    public Table(AnalyseResult result){
+
         this.setTitle("LL1分析过程");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-
-
-        var lL1Machine=new LL1Machine();
-        var s= CodeUtil.DefaultCode ;
-        InfoUtil.initialize();
-        TokenUtil.doToken(s);
-        var tokens=InfoUtil.tokenList;
-        var result=lL1Machine.parsing(tokens,SNLProdcutionElement.getStartElement());
-
+        this.setModal(true);
+        //setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // 创建内容面板
         JPanel panel = new JPanel(new BorderLayout());
 
+        //结果Label
+        var resultString="语法分析结果:";
+        if (result.isSuccess()){
+            resultString+="成功，无语法错误";
+        }else{
+            resultString+="失败，失败原因:"+result.getFailResult();
+        }
+        var resultLabel=new JLabel(resultString,JLabel.CENTER);
+        resultLabel.setFont(new Font("微软雅黑", Font.BOLD, 20));
+
+        panel.add(resultLabel,BorderLayout.NORTH);
 
         // 创建一个表格，指定 表头 和 所有行数据
         JTable table = new JTable(new AnalyseResultTableModel(result));
@@ -76,8 +75,9 @@ public class Table extends JFrame{
 
         pack();
         setLocationRelativeTo(null);
-        setVisible(true);
+
         setBounds(100,100,1200,600);
+        setVisible(true);
     }
 
 }

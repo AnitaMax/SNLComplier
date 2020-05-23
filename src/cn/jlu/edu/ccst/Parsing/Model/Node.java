@@ -1,4 +1,4 @@
-package cn.jlu.edu.ccst.Parsing.Controller;
+package cn.jlu.edu.ccst.Parsing.Model;
 
 
 
