@@ -1,4 +1,4 @@
-package cn.jlu.edu.ccst.View;
+package cn.jlu.edu.ccst.View.UI;
 
 import cn.jlu.edu.ccst.Parsing.Controller.LL1Machine;
 import cn.jlu.edu.ccst.Parsing.Model.SNLProdcutionElement;
