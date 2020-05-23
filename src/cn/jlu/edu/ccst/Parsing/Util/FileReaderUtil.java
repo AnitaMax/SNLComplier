@@ -1,6 +1,6 @@
-package cn.jlu.edu.ccst.Parsing.Controller.Util;
+package cn.jlu.edu.ccst.Parsing.Util;
 
-import cn.jlu.edu.ccst.View.UI.MainWindow;
+import cn.jlu.edu.ccst.View.Windows.MainWindow;
 
 import java.io.*;
 import java.util.ArrayList;

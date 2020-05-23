@@ -1,14 +1,13 @@
-package cn.jlu.edu.ccst.Parsing.Controller;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
+package cn.jlu.edu.ccst.View.Component;
+
+import cn.jlu.edu.ccst.Parsing.Controller.Node;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.JPanel;
 
 
 public class TreePanel extends JPanel {

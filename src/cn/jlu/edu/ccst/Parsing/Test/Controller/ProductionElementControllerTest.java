@@ -2,7 +2,7 @@ package cn.jlu.edu.ccst.Parsing.Test.Controller;
 
 import cn.jlu.edu.ccst.Parsing.Controller.ProductionElementController;
 import cn.jlu.edu.ccst.Parsing.Model.ProductionElement;
-import cn.jlu.edu.ccst.Parsing.Controller.Util.FileReaderUtil;
+import cn.jlu.edu.ccst.Parsing.Util.FileReaderUtil;
 import cn.jlu.edu.ccst.WordsAnalyse.util.RegexUtil;
 import org.junit.jupiter.api.Test;
 

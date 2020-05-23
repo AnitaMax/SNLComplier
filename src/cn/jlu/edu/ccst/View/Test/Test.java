@@ -1,4 +1,4 @@
-package cn.jlu.edu.ccst.View.Tests;
+package cn.jlu.edu.ccst.View.Test;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

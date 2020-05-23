@@ -1,7 +1,8 @@
-package cn.jlu.edu.ccst.View.UI;
+package cn.jlu.edu.ccst.View.Windows;
 
 import cn.jlu.edu.ccst.Parsing.Controller.LL1Machine;
 import cn.jlu.edu.ccst.Parsing.Model.SNLProdcutionElement;
+import cn.jlu.edu.ccst.View.Component.EditScoll;
 import cn.jlu.edu.ccst.View.Util.CodeUtil;
 import cn.jlu.edu.ccst.WordsAnalyse.util.InfoUtil;
 import cn.jlu.edu.ccst.WordsAnalyse.util.TokenUtil;

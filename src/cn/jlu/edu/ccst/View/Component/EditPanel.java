@@ -1,4 +1,4 @@
-package cn.jlu.edu.ccst.View.UI;
+package cn.jlu.edu.ccst.View.Component;
 
 import javax.swing.*;
 import javax.swing.text.Element;

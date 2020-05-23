@@ -3,7 +3,7 @@ package cn.jlu.edu.ccst.Parsing.Controller;
 import cn.jlu.edu.ccst.Parsing.Model.Production;
 import cn.jlu.edu.ccst.Parsing.Model.ProductionElement;
 import cn.jlu.edu.ccst.Parsing.Model.SNLProdcutionElement;
-import cn.jlu.edu.ccst.Parsing.Controller.Util.FileReaderUtil;
+import cn.jlu.edu.ccst.Parsing.Util.FileReaderUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;

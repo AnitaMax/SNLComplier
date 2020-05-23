@@ -1,4 +1,4 @@
-package cn.jlu.edu.ccst.View.UI;
+package cn.jlu.edu.ccst.View.Windows;
 
 import cn.jlu.edu.ccst.Parsing.Controller.LL1Machine;
 import cn.jlu.edu.ccst.Parsing.Model.SNLProdcutionElement;
@@ -10,11 +10,13 @@ import cn.jlu.edu.ccst.WordsAnalyse.util.TokenUtil;
 import javax.swing.*;
 import java.awt.*;
 
-public class Table {
+public class Table extends JFrame{
 
-    public static void main(String[] args) {
-        JFrame jf = new JFrame("LL1分析过程");
-        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    public Table(){
+        this.setTitle("LL1分析过程");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+
 
         var lL1Machine=new LL1Machine();
         var s= CodeUtil.DefaultCode ;
@@ -56,21 +58,26 @@ public class Table {
         table.getColumnModel().getColumn(AnalyseResultTableModel.NumOfInput).setPreferredWidth(200);
         table.getColumnModel().getColumn(AnalyseResultTableModel.NumOfAction).setPreferredWidth(600);
 
-        // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
-        //table.setPreferredScrollableViewportSize(new Dimension(400, 300));
 
         // 把 表格 放到 滚动面板 中（表头将自动添加到滚动面板顶部）
         JScrollPane scrollPane = new JScrollPane(table);
+
+
+        // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
+        //table.setPreferredScrollableViewportSize(new Dimension(scrollPane.getWidth()*2, scrollPane.getHeight()));
+
+
 
         // 添加 滚动面板 到 内容面板
         panel.add(scrollPane,BorderLayout.CENTER);
 
         // 设置 内容面板 到 窗口
-        jf.setContentPane(panel);
+        setContentPane(panel);
 
-        jf.pack();
-        jf.setLocationRelativeTo(null);
-        jf.setVisible(true);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+        setBounds(100,100,1200,600);
     }
 
 }
